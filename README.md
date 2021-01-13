@@ -21,3 +21,8 @@ Python 3 en adelante trae incorporando un paquete llamado venv que permite gesti
 ## Apunte, luego borrar 
 ### Orden de comandos ejecutados para instalar librerías
 1. pip install django
+npm install axios (para conectar con el backend)
+npm install bootstrap bootstrap-vue jquery popper.js (framework css, antes bulma)
+
+db_admin = admin pw destacametest
+la aplicacion de vue tiene babel, router y css preprocessors = Sass/SCSS (with node-sass)

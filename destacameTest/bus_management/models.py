@@ -77,21 +77,21 @@ class AuthUserUserPermissions(models.Model):
 class Buses(models.Model):
     id_bus = models.AutoField(primary_key=True)
     asientos = models.IntegerField()
-    marca = models.CharField(db_column='Marca', max_length=30)  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'buses'
 
 
-class Choferes(models.Model):
-    nombre = models.CharField(max_length=30)
-    rut = models.IntegerField(primary_key=True)
-    nacimiento = models.DateField()
+class Courses(models.Model):
+    id_trayecto = models.AutoField(primary_key=True)
+    origen = models.CharField(max_length=30)
+    destino = models.CharField(max_length=30)
+    distancia = models.IntegerField()
 
     class Meta:
         managed = False
-        db_table = 'choferes'
+        db_table = 'courses'
 
 
 class DjangoAdminLog(models.Model):
@@ -138,45 +138,44 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
-class Pasajeros(models.Model):
+class Drivers(models.Model):
+    nombre = models.CharField(max_length=30)
+    rut = models.IntegerField(primary_key=True)
+    nacimiento = models.DateField()
+
+    class Meta:
+        managed = False
+        db_table = 'drivers'
+
+
+class PassengerSeats(models.Model):
+    id_viaje = models.ForeignKey('Trips', models.DO_NOTHING, db_column='id_viaje')
+    id_pasajero = models.ForeignKey('Passengers', models.DO_NOTHING, db_column='id_pasajero')
+    asiento = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'passenger_seats'
+
+
+class Passengers(models.Model):
     rut = models.IntegerField(primary_key=True)
     nombre = models.CharField(max_length=30)
     nacimiento = models.DateField()
 
     class Meta:
         managed = False
-        db_table = 'pasajeros'
+        db_table = 'passengers'
 
 
-class PasajerosAsientos(models.Model):
-    id_viaje = models.ForeignKey('Viajes', models.DO_NOTHING, db_column='id_viaje')
-    id_pasajero = models.ForeignKey(Pasajeros, models.DO_NOTHING, db_column='id_pasajero')
-    asiento = models.IntegerField()
-
-    class Meta:
-        managed = False
-        db_table = 'pasajeros_asientos'
-
-
-class Trayecto(models.Model):
-    id_trayecto = models.AutoField(primary_key=True)
-    origen = models.CharField(max_length=30)
-    destino = models.CharField(max_length=30)
-    distancia = models.IntegerField()
-
-    class Meta:
-        managed = False
-        db_table = 'trayecto'
-
-
-class Viajes(models.Model):
+class Trips(models.Model):
     id_viaje = models.IntegerField(primary_key=True)
-    rut_chofer = models.ForeignKey(Choferes, models.DO_NOTHING, db_column='rut_chofer')
-    id_trayecto = models.ForeignKey(Trayecto, models.DO_NOTHING, db_column='id_trayecto')
+    rut_chofer = models.ForeignKey(Drivers, models.DO_NOTHING, db_column='rut_chofer')
+    id_trayecto = models.ForeignKey(Courses, models.DO_NOTHING, db_column='id_trayecto')
     id_bus = models.ForeignKey(Buses, models.DO_NOTHING, db_column='id_bus')
     horario = models.DateTimeField()
     asientos_disponibles = models.IntegerField()
 
     class Meta:
         managed = False
-        db_table = 'viajes'
+        db_table = 'trips'
