@@ -17,7 +17,7 @@ Python 3 en adelante trae incorporando un paquete llamado venv que permite gesti
 ### Instalación de Vue.js
 1. Para obtener vue, en primer lugar se debe instalar el Node.js y NPM. Para esto, se puede descargar desde <https://nodejs.org/en/download/>
 2. Seguir las instrucciones en pantalla y realizar la instalación.
-3. Luego para instalar vue, en consola ingresar <npm install vue>.
+3. Luego para instalar vue, en consola ingresar <npm install -g @vue/cli>.
 ## Apunte, luego borrar 
 ### Orden de comandos ejecutados para instalar librerías
 1. pip install django

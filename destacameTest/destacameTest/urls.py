@@ -21,7 +21,7 @@ from rest_framework import routers
 from bus_management.views import IndexView, BusViewSet
 
 router = routers.DefaultRouter()
-router.register("buses", BusViewSet)
+router.register(r"buses", BusViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
