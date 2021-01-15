@@ -1,18 +1,51 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1 class="title">Gestión de Buses</h1>
+    <hr>
+    <div class="columns">
+      <div class="column">
+        <form>
+          <h2 class="subtitle">Crear Bus</h2>
+          <div class="field">
+            <label class="label">Número de asientos</label>
+            <div class="control">
+              <input class="input" type="number">
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <b-button variant="success" class="button">Crear</b-button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
+  data () {
+    return {
+
+    }
   }
 }
 </script>
+<style lang="scss">
+.select, select {
+  width: 100%;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+
+.done {
+  opacity: 0.3;
+}
+
+</style>

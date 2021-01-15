@@ -1,0 +1,15 @@
+.navbar-custom{
+  background-color: white;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(0,0,0,.5);
+    font-size: 15px !important;
+    font-weight: 600;
+}
+.nav-link.router-link-active{
+  color: #126fec !important;
+  opacity: 1 !important;
+  font-size: 15px !important;
+  font-weight: 600;
+}
