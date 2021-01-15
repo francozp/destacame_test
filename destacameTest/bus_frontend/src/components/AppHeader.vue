@@ -1,6 +1,6 @@
 <template>
 <div id="top-navbar">
-    <b-navbar sticky="True" toggleable="lg" type="light" variant="navbar-custom">
+    <b-navbar sticky toggleable="lg" type="light" variant="navbar-custom">
         <b-navbar-brand href="#">
         <img src="@/assets/images/logo.jpg" style="height: 30px;margin: 5px;" class="d-inline-block align-top" alt="Destacame Buses">
         </b-navbar-brand>
