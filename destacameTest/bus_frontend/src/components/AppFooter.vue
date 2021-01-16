@@ -2,27 +2,24 @@
  <footer class="mt-auto">
     <b-container fluid style="padding-bottom: 0px;background-color:#31395b">
         <b-row>
-        <b-col>
-            <img src="@/assets/images/logo.jpg" style="height: 20px;margin: 5px;" class="d-inline-block align-top" alt="Destacame Buses"></b-col>
-        <b-col>
+        <b-col class="footer-col">
+            <img src="@/assets/images/footer-logo.svg" style="height: 30px;margin: 10px;" class="d-inline-block align-top" alt="Destacame Buses"></b-col>
+        <b-col class="footer-col">
             <ul style="padding-inline-start: 180px; text-align:left;list-style:none">
             <li>Destacame Buses</li>
-            <li><router-link to="/">Buses</router-link></li>
-            <li><router-link to="/about">Pasajeros</router-link></li>
-            <li><router-link to="/">Trayectos</router-link></li>
-            <li><router-link to="/about">Choferes</router-link></li>
-            <li><router-link to="/">Viajes</router-link></li>
+            <li><router-link class="footer-link" to="/">Buses</router-link></li>
+            <li><router-link class="footer-link" to="/about">Pasajeros</router-link></li>
+            <li><router-link class="footer-link" to="/">Trayectos</router-link></li>
+            <li><router-link class="footer-link" to="/about">Choferes</router-link></li>
+            <li><router-link class="footer-link" to="/">Viajes</router-link></li>
             </ul>
         </b-col>
-        <b-col  >
+        <b-col class="footer-col">
             <ul style="padding-inline-start: 180px; text-align:left;list-style:none">
             <li>Administrar</li>
-            <li><router-link to="/">Viajes</router-link></li>
-            <li><router-link to="/about">Estadísticas</router-link></li>
+            <li><router-link class="footer-link" to="/">Viajes</router-link></li>
+            <li><router-link class="footer-link" to="/about">Estadísticas</router-link></li>
             </ul>
-        </b-col>
-        <b-col>
-            Redes Sociales
         </b-col>
         </b-row>
     </b-container>
@@ -39,3 +36,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+
+@import "@/assets/styles/footer.scss";
+
+</style>

@@ -6,7 +6,7 @@
 
       <!-- Body -->
       <b-container>
-        <router-view/>
+        <router-view></router-view>
       </b-container>
 
       <!-- Footer -->

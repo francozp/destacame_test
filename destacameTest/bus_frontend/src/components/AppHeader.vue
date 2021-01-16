@@ -2,7 +2,7 @@
 <div id="top-navbar">
     <b-navbar sticky toggleable="lg" type="light" variant="navbar-custom">
         <b-navbar-brand href="#">
-        <img src="@/assets/images/logo.jpg" style="height: 30px;margin: 5px;" class="d-inline-block align-top" alt="Destacame Buses">
+        <img src="@/assets/images/navbar-logo.svg" style="height: 35px;margin: 5px;" class="d-inline-block align-top" alt="Destacame Buses">
         </b-navbar-brand>
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav class="ml-auto">
@@ -32,3 +32,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+
+@import "@/assets/styles/header.scss";
+
+</style>
