@@ -160,118 +160,124 @@
 import axios from 'axios';
   export default {
     data() {
-        return {
-            items: [],
-            show: false,
-            seats: 10,
-            fields: [
-            { key: 'bus_id', label: 'Id del bus', sortable: true, sortDirection: 'desc' },
-            { key: 'seats', label: 'Asientos por bus', sortable: true, class: 'text-center' },
-            { key: 'actions', label: 'Actions' },
-            ],
-            
-            totalRows: 15,
-            currentPage: 1,
-            perPage: 5,
-            pageOptions: [5, 10, 15, 50],
-            sortBy: '',
-            sortDesc: false,
-            sortDirection: 'asc',
-            filter: null,
-            filterOn: [],
-            infoModal: {
-              id: 'info-modal',
-              title: '',
-              content: []
+      return {
+          items: [],
+          show: false,
+          seats: 10,
+          // Fields of table
+          fields: [
+          { key: 'bus_id', label: 'Id del bus', sortable: true, sortDirection: 'desc' },
+          { key: 'seats', label: 'Asientos por bus', sortable: true, class: 'text-center' },
+          { key: 'actions', label: 'Actions' },
+          ],
+          totalRows: 15,
+          currentPage: 1,
+          perPage: 5,
+          pageOptions: [5, 10, 15, 50],
+          sortBy: '',
+          sortDesc: false,
+          sortDirection: 'asc',
+          filter: null,
+          filterOn: [],
+          infoModal: {
+            id: 'info-modal',
+            title: '',
+            content: []
+          }
+      }
+    },
+    mounted() {
+        this.getBuses()    
+    },
+    methods: {
+      getBuses() {
+        // Obtain items from Buses Model using axios to connect to the backend
+        axios({
+            method: 'get',
+            url: 'http://127.0.0.1:8000/buses/',
+            //Authentification
+            auth: {
+              username: 'admin',
+              password: 'destacametest'
             }
-        }
-        },
-        mounted() {
-            this.getBuses()    
-        },
-        methods: {
-            getBuses() {
-                axios({
-                    method: 'get',
-                    url: 'http://127.0.0.1:8000/buses/',
-                    auth: {
-                      username: 'admin',
-                      password: 'destacametest'
-                    }
-                }).then((response) => {
-                  this.items = response.data
-                  this.totalRows = this.items.length
-                  })
-            },
+        }).then((response) => {
+          this.items = response.data // Assign retrieved items
+          this.totalRows = this.items.length // Update rows qty from table
+        })
+      },
 
-            addBus() {
-              if (this.seats) {
-                  axios({
-                  method: 'post',
-                  url: 'http://127.0.0.1:8000/buses/',
-                  data: {
-                      seats: this.seats
-                  },
-                  auth: {
-                      username: 'admin',
-                      password: 'destacametest'
-                  }
-                  }).then((response) => {
-                  this.getBuses() // Update Table
-                  this.seats = 10
-                  }).catch((error) => {
-                  console.log(error)
-                  })
+      addBus() {
+        // Create items from Buses Model using axios to connect to the backend
+        // Check if seats value exists
+        if (this.seats) {
+            axios({
+              method: 'post',
+              url: 'http://127.0.0.1:8000/buses/',
+              data: {
+                  seats: this.seats
+              },
+              auth: {
+                  username: 'admin',
+                  password: 'destacametest'
               }
-            },
-
-            deleteBus(bus_id) {
-              axios({
-                method: 'delete',
-                url: 'http://127.0.0.1:8000/buses/' + bus_id + '/',
-                auth: {
-                  username: 'admin',
-                  password: 'destacametest'
-                }
-              }).then(response => { // Delete the item from the table
-                  const index = this.items.findIndex(item => item.bus_id === bus_id) // find index on table
-                  this.totalRows -= 1
-                  console.log("Eliminado")
-                  if (~index) // check if the item exists
-                    this.items.splice(index, 1) // Delete
-              });
-            },
-
-            updateBus(bus_id, seats) {
-              axios({
-                method: 'put',
-                data: {
-                  seats: seats
-                },
-                url: 'http://127.0.0.1:8000/buses/' + bus_id + '/',
-                auth: {
-                  username: 'admin',
-                  password: 'destacametest'
-                }
-              })
-            },
-
-            info(item, index, button) {
-                this.infoModal.title = "Editar Bus: " + item.bus_id
-                this.infoModal.seats = item.seats
-                this.infoModal.bus_id = item.bus_id
-                this.$root.$emit('bv::show::modal', this.infoModal.id, button)
-            },
-
-            resetInfoModal() {
-                this.infoModal.title = ''
-                this.infoModal.content = []
-            },
-            onFiltered(filteredItems) {
-                // Trigger pagination to update the number of buttons/pages due to filtering
-                this.totalRows = filteredItems.length
-                this.currentPage = 1
-            }
+            }).then((response) => {
+              this.getBuses() // Update Table
+              this.seats = 10
+            }).catch((error) => {
+              console.log(error) // Print error on console
+            })
         }
+      },
+
+      deleteBus(bus_id) {
+        // Delete items from Buses Model using axios to connect to the backend
+        axios({
+          method: 'delete',
+          url: 'http://127.0.0.1:8000/buses/' + bus_id + '/',
+          auth: {
+            username: 'admin',
+            password: 'destacametest'
+          }
+        }).then(response => { // Delete the item from the table
+            const index = this.items.findIndex(item => item.bus_id === bus_id) // find index on table
+            this.totalRows -= 1
+            if (~index) // check if the item exists
+              this.items.splice(index, 1) // Delete 
+        });
+      },
+
+      updateBus(bus_id, seats) {
+        // Update items from Buses Model using axios to connect to the backend
+        axios({
+          method: 'put',
+          data: {
+            seats: seats
+          },
+          url: 'http://127.0.0.1:8000/buses/' + bus_id + '/',
+          auth: {
+            username: 'admin',
+            password: 'destacametest'
+          }
+        })
+      },
+
+      info(item, index, button) {
+        // Opens the modal with item information
+          this.infoModal.title = "Editar Bus: " + item.bus_id
+          this.infoModal.seats = item.seats
+          this.infoModal.bus_id = item.bus_id
+          this.$root.$emit('bv::show::modal', this.infoModal.id, button)
+      },
+
+      resetInfoModal() {
+          this.infoModal.title = ''
+          this.infoModal.content = []
+      },
+      onFiltered(filteredItems) {
+          // Trigger pagination to update the number of buttons/pages due to filtering
+          this.totalRows = filteredItems.length
+          this.currentPage = 1
+      }
+    }
   }
 </script>
