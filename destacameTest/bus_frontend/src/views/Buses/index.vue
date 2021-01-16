@@ -2,19 +2,19 @@
 
   <div class="buses">
     <h1>Administración de Buses</h1>
-    <bus-table></bus-table>
+    <buses-table></buses-table>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 
-import BusTable from './components/BusTable.vue';
+import BusesTable from './components/BusesTable.vue';
 
 export default {
   name: 'Buses',
   components: {
-    BusTable
+    BusesTable
   },
   data () {
     return {
