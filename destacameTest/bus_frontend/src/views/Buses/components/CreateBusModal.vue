@@ -34,23 +34,9 @@ export default {
         return {
         show: false,
         seats: 10,
-        buses: []
         }
     },
-    mounted () {
-        this.getBuses()
-    },
     methods: {
-        getBuses() {
-            axios({
-                method: 'get',
-                url: 'http://127.0.0.1:8000/buses/',
-                auth: {
-                username: 'admin',
-                password: 'destacametest'
-                }
-            }).then(response => this.buses = response.data)
-        },
         addBus() {
             if (this.seats) {
                 axios({
