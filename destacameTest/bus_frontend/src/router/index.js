@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Statistics from '../views/Statistics'
 import Buses from '../views/Buses'
+import Passengers from '../views/Passengers'
 
 Vue.use(VueRouter)
 
@@ -30,6 +31,14 @@ const routes = [
     component: Buses,
     meta: {
       title: 'Destacame-Buses: Buses',
+    }
+  },
+  {
+    path: '/pasajeros',
+    name: 'Passengers',
+    component: Passengers,
+    meta: {
+      title: 'Destacame-Buses: Pasajeros',
     }
   },
   {

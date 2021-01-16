@@ -18,10 +18,15 @@ from django.urls import path, include
 
 from rest_framework import routers
 
-from bus_management.views import IndexView, BusViewSet
+from bus_management.views import (IndexView, BusViewSet, CourseViewSet, 
+                                  DriverViewSet, TripViewSet, PassengerViewSet)
 
 router = routers.DefaultRouter()
 router.register(r"buses", BusViewSet)
+router.register(r"passengers", PassengerViewSet)
+router.register(r"courses", CourseViewSet)
+router.register(r"trips", TripViewSet)
+router.register(r"drivers", DriverViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

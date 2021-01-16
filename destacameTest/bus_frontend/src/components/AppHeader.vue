@@ -11,7 +11,7 @@
             <b-link class="nav-link" to="/statistics" exact>Estadísticas</b-link>
             <b-nav-item-dropdown text="Administrar">
                 <b-dropdown-item class="nav-link" to="/buses" exact>Buses</b-dropdown-item>
-                <b-dropdown-item class="nav-link" exact>Pasajeros</b-dropdown-item> 
+                <b-dropdown-item class="nav-link" to="/pasajeros" exact>Pasajeros</b-dropdown-item> 
                 <b-dropdown-item class="nav-link" exact>Trayectos</b-dropdown-item>
                 <b-dropdown-item class="nav-link" exact>Choferes</b-dropdown-item>
                 <b-dropdown-item class="nav-link" exact>Viajes</b-dropdown-item>

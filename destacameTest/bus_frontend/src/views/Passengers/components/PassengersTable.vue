@@ -32,15 +32,73 @@
     <!-- Bus Creation --> 
     <div class="float-left">
       <!-- Toggle Creation Modal --> 
-      <b-button @click="show=true" variant="primary">Crear Bus</b-button>
-      <b-modal v-model="show" hide-footer title="Crear Bus" header-text-variant="primary">
+      <b-button @click="show=true" variant="primary">Crear Pasajero</b-button>
+      <b-modal v-model="show" hide-footer title="Crear Pasajero" header-text-variant="primary">
         <b-container fluid>
-          <b-form v-on:submit.prevent="addBus">
+          <b-form v-on:submit.prevent="addPassenger">
             <!-- Inputs -->
             <!-- Seats -->
-            <b-row class="mb-1 text-center">
-                <b-col cols=2>Asientos</b-col>
-                <b-col><b-form-input v-model="seats" type="number" default=10></b-form-input></b-col>
+            <b-row class="mb-1">
+                <b-col>RUT</b-col>
+                <b-col>
+                  <b-form-input 
+                    v-model="rut"
+                    :state="rutState"
+                    aria-describedby="invalid-rut" 
+                    type="text" 
+                    required
+                    placeholder=11111111>
+                  </b-form-input>
+                  <b-form-invalid-feedback id="invalid-rut">
+                    Ingrese RUT válido, sin puntos, guión, ni codigo verificador.
+                  </b-form-invalid-feedback>
+
+                  <!-- This is a form text block (formerly known as help block) -->
+                  
+                </b-col>
+            </b-row>
+            <b-row class="mb-1">
+                <b-col>Nombre</b-col>
+                <b-col>
+                  <b-form-input 
+                    v-model="name" 
+                    type="text" 
+                    required
+                    :state="nameState"
+                    aria-describedby="invalid-name" 
+                    placeholder="Juan">
+                  </b-form-input>
+                  <b-form-invalid-feedback id="invalid-name">
+                    Ingrese un nombre con menos de 30 caracteres.
+                  </b-form-invalid-feedback>
+                </b-col>
+            </b-row>
+            <b-row class="mb-1">
+                <b-col>Apellido</b-col>
+                <b-col>
+                <b-form-input 
+                  v-model="lastname" 
+                  type="text" 
+                  :state="lastnameState"
+                  required
+                  aria-describedby="invalid-lastname" 
+                  placeholder="Perez">
+                </b-form-input>
+                <b-form-invalid-feedback id="invalid-lastname">
+                  Ingrese un apellido con menos de 30 caracteres.
+                </b-form-invalid-feedback>
+                </b-col>
+            </b-row>
+            <b-row class="mb-1">
+                <b-col>Fecha de Nacimiento</b-col>
+                <b-col>
+                <b-form-input 
+                  v-model="birthday"
+                  min= '1900-01-01'
+                  required
+                  type="date">
+                </b-form-input>
+                </b-col>
             </b-row>
             <!-- Submit -->
             <div class="w-100">
@@ -49,7 +107,7 @@
                   variant="primary"
                   size="md"
                   class="float-right mt-3"
-                  @click="show=false"
+                  @click="checkModal"
               >
               Crear
               </b-button>
@@ -164,10 +222,16 @@ import axios from 'axios';
           items: [],
           show: false,
           seats: 10,
+          rut: '',
+          name: '',
+          lastname: '',
+          birthday: '1990-01-01',
           // Fields of table
           fields: [
-          { key: 'bus_id', label: 'Id del bus', sortable: true, sortDirection: 'desc' },
-          { key: 'seats', label: 'Asientos por bus', sortable: true, class: 'text-center' },
+          { key: 'rut', label: 'RUT', sortable: true, sortDirection: 'desc' },
+          { key: 'name', label: 'Nombre', sortable: true, class: 'text-center' },
+          { key: 'last_name', label: 'Apellido', sortable: true},
+          { key: 'birthday', label: 'Fecha de Nacimiento', sortable: true },
           { key: 'actions', label: 'Actions' },
           ],
           totalRows: 15,
@@ -189,7 +253,47 @@ import axios from 'axios';
     mounted() {
         this.getBuses()    
     },
+    computed: {
+      rutState() {
+        if(this.rut.length <= 8 & this.rut.length > 6 & !isNaN(this.rut)){
+          return true
+        }
+        else if(this.rut.length == 0){
+          return null
+        }
+        else{
+          return false
+        }
+      },
+      nameState() {
+        if(this.name.length > 0 & this.name.length <= 30){
+          return true
+        }
+        else if(this.name.length == 0){
+          return null
+        }
+        else{
+          return false
+        }
+      },
+      lastnameState() {
+        if(this.lastname.length > 0 & this.lastname.length <= 30){
+          return true
+        }
+        else if(this.lastname.length == 0){
+          return null
+        }
+        else{
+          return false
+        }
+      }
+    },
     methods: {
+      checkModal(){
+        if(this.rutState & this.nameState & this.lastnameState){
+         this.show = false
+        }
+      },
       getBuses() {
         // Obtain items from Buses Model using axios to connect to the backend
         axios({
