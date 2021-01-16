@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
 import Home from '../views/Home.vue'
 import Statistics from '../views/Statistics'
+import Buses from '../views/Buses'
 
 Vue.use(VueRouter)
 
@@ -20,6 +22,14 @@ const routes = [
     component: Statistics,
     meta: {
       title: 'Destacame-Buses: Estadísticas',
+    }
+  },
+  {
+    path: '/buses',
+    name: 'Buses',
+    component: Buses,
+    meta: {
+      title: 'Destacame-Buses: Buses',
     }
   },
   {
