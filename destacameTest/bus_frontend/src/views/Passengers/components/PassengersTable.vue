@@ -257,7 +257,6 @@ import axios from 'axios';
       return {
           items: [],
           show: false,
-          seats: 10,
           rut: '',
           name: '',
           lastname: '',

@@ -7,18 +7,17 @@
         <b-col class="footer-col">
             <ul style="padding-inline-start: 180px; text-align:left;list-style:none">
             <li>Destacame Buses</li>
-            <li><router-link class="footer-link" to="/buses">Buses</router-link></li>
-            <li><router-link class="footer-link" to="/pasajeros">Pasajeros</router-link></li>
-            <li><router-link class="footer-link" to="/">Trayectos</router-link></li>
-            <li><router-link class="footer-link" to="/about">Choferes</router-link></li>
             <li><router-link class="footer-link" to="/">Viajes</router-link></li>
+            <li><router-link class="footer-link" to="/about">Estadísticas</router-link></li>
             </ul>
         </b-col>
         <b-col class="footer-col">
             <ul style="padding-inline-start: 180px; text-align:left;list-style:none">
             <li>Administrar</li>
-            <li><router-link class="footer-link" to="/">Viajes</router-link></li>
-            <li><router-link class="footer-link" to="/about">Estadísticas</router-link></li>
+            <li><router-link class="footer-link" to="/buses">Buses</router-link></li>
+            <li><router-link class="footer-link" to="/pasajeros">Pasajeros</router-link></li>
+            <li><router-link class="footer-link" to="/trayectos">Trayectos</router-link></li>
+            <li><router-link class="footer-link" to="/about">Choferes</router-link></li>
             </ul>
         </b-col>
         </b-row>

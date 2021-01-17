@@ -29,18 +29,46 @@
     </div>
     <!-- End Search Bar --> 
 
-    <!-- Bus Creation --> 
+    <!-- Course Creation --> 
     <div class="float-left">
       <!-- Toggle Creation Modal --> 
-      <b-button @click="show=true" variant="primary">Crear Bus</b-button>
-      <b-modal v-model="show" hide-footer title="Crear Bus" header-text-variant="primary">
+      <b-button @click="show=true" variant="primary">Crear Trayecto</b-button>
+      <b-modal v-model="show" hide-footer title="Crear Trayecto" header-text-variant="primary">
         <b-container fluid>
-          <b-form v-on:submit.prevent="addBus">
+          <b-form v-on:submit.prevent="addCourse">
             <!-- Inputs -->
             <!-- Seats -->
-            <b-row class="mb-1 text-center">
-                <b-col cols=2>Asientos</b-col>
-                <b-col><b-form-input v-model="seats" type="number" default=10></b-form-input></b-col>
+            <b-row class="mb-1">
+                <b-col>Origen</b-col>
+                <b-col>
+                  <b-form-input 
+                    v-model="origin"
+                    :state="originState"
+                    aria-describedby="invalid-origin" 
+                    type="text" 
+                    required
+                    placeholder=Santiago>
+                  </b-form-input>
+                  <b-form-invalid-feedback id="invalid-origin">
+                    Ingrese un origen con menos de 30 caracteres.
+                  </b-form-invalid-feedback>
+                </b-col>
+            </b-row>
+            <b-row class="mb-1">
+                <b-col>Destino</b-col>
+                <b-col>
+                  <b-form-input 
+                    v-model="destination" 
+                    type="text" 
+                    required
+                    :state="destinationState"
+                    aria-describedby="invalid-destination" 
+                    placeholder="Arica">
+                  </b-form-input>
+                  <b-form-invalid-feedback id="invalid-destination">
+                    Ingrese un destino con menos de 30 caracteres.
+                  </b-form-invalid-feedback>
+                </b-col>
             </b-row>
             <!-- Submit -->
             <div class="w-100">
@@ -49,7 +77,7 @@
                   variant="primary"
                   size="md"
                   class="float-right mt-3"
-                  @click="show=false"
+                  @click="checkModal"
               >
               Crear
               </b-button>
@@ -58,7 +86,7 @@
         </b-container>
       </b-modal>
     </div>
-    <!-- End of Bus Creation --> 
+    <!-- End of Course Creation --> 
 
     <!-- Main table element -->
     <b-table
@@ -74,15 +102,15 @@
     >
 
       <!-- Row Data -->
-      <template #cell(bus_id)="row">
-        {{ row.item.bus_id }}
+      <template #cell(course_id)="row">
+        {{ row.item.course_id }}
       </template>
       <!-- Edit/Delete buttons -->
       <template #cell(actions)="row">
         <b-button variant="info" size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
           Editar
         </b-button>
-        <b-button variant="danger" size="sm" @click="deleteBus(row.item.bus_id)">
+        <b-button variant="danger" size="sm" @click="deleteCourse(row.item.course_id)">
           Eliminar
         </b-button>
       </template>
@@ -132,18 +160,46 @@
         <b-container fluid>
           <b-form>
           <!-- Form -->
-          <b-row class="mb-1 text-center">
-              <b-col cols=2>Asientos</b-col>
-              <b-col><b-form-input v-model="infoModal.seats" type="number"></b-form-input></b-col>
+          <b-row class="mb-1">
+              <b-col>Origen</b-col>
+              <b-col>
+                <b-form-input 
+                  v-model="infoModal.origin"
+                  :state="originState"
+                  aria-describedby="invalid-origin" 
+                  type="text" 
+                  required
+                  placeholder=Santiago>
+                </b-form-input>
+                <b-form-invalid-feedback id="invalid-origin">
+                  Ingrese un origen con menos de 30 caracteres.
+                </b-form-invalid-feedback>
+              </b-col>
           </b-row>
-          <!-- Submit and call updateBus -->
+          <b-row class="mb-1">
+              <b-col>Destino</b-col>
+              <b-col>
+                <b-form-input 
+                  v-model="infoModal.destination" 
+                  type="text" 
+                  required
+                  :state="destinationState"
+                  aria-describedby="invalid-destination" 
+                  placeholder="Arica">
+                </b-form-input>
+                <b-form-invalid-feedback id="invalid-destination">
+                  Ingrese un destino con menos de 30 caracteres.
+                </b-form-invalid-feedback>
+              </b-col>
+          </b-row>
+          <!-- Submit and call updateCourse -->
           <div class="w-100">
               <b-button
                   type="submit"
                   variant="primary"
                   size="md"
                   class="float-right mt-3"
-                  @click="updateBus(infoModal.bus_id, infoModal.seats)"
+                  @click="updateCourse(infoModal.course_id, infoModal.origin, infoModal.destination)"
               >
               Editar
               </b-button>
@@ -163,11 +219,13 @@ import axios from 'axios';
       return {
           items: [],
           show: false,
-          seats: 10,
+          origin: '',
+          destination: '',
           // Fields of table
           fields: [
-          { key: 'bus_id', label: 'Id del bus', sortable: true, sortDirection: 'desc' },
-          { key: 'seats', label: 'Asientos por bus', sortable: true, class: 'text-center' },
+          { key: 'course_id', label: 'Id del trayecto', sortable: true, sortDirection: 'desc' },
+          { key: 'origin', label: 'Origen', sortable: true, class: 'text-center' },
+          { key: 'destination', label: 'Destino', sortable: true, class: 'text-center' },
           { key: 'actions', label: 'Actions' },
           ],
           totalRows: 15,
@@ -187,14 +245,43 @@ import axios from 'axios';
       }
     },
     mounted() {
-        this.getBuses()    
+        this.getCourses()    
+    },
+    computed: {
+      originState() {
+        if(this.origin.length > 0 & this.origin.length <= 30){
+          return true
+        }
+        else if(this.origin.length == 0){
+          return null
+        }
+        else{
+          return false
+        }
+      },
+      destinationState() {
+        if(this.destination.length > 0 & this.destination.length <= 30){
+          return true
+        }
+        else if(this.destination.length == 0){
+          return null
+        }
+        else{
+          return false
+        }
+      }
     },
     methods: {
-      getBuses() {
-        // Obtain items from Buses Model using axios to connect to the backend
+      checkModal(){
+        if(this.originState & this.destinationState){
+         this.show = false
+        }
+      },
+      getCourses() {
+        // Obtain items from Courses Model using axios to connect to the backend
         axios({
             method: 'get',
-            url: 'http://127.0.0.1:8000/buses/',
+            url: 'http://127.0.0.1:8000/courses/',
             //Authentification
             auth: {
               username: 'admin',
@@ -206,54 +293,55 @@ import axios from 'axios';
         })
       },
 
-      addBus() {
-        // Create items from Buses Model using axios to connect to the backend
+      addCourse() {
+        // Create items from Courses Model using axios to connect to the backend
         // Check if seats value exists
-        if (this.seats) {
-            axios({
-              method: 'post',
-              url: 'http://127.0.0.1:8000/buses/',
-              data: {
-                  seats: this.seats
-              },
-              auth: {
-                  username: 'admin',
-                  password: 'destacametest'
-              }
-            }).then((response) => {
-              this.getBuses() // Update Table
-              this.seats = 10
-            }).catch((error) => {
-              console.log(error) // Print error on console
-            })
-        }
+        axios({
+          method: 'post',
+          url: 'http://127.0.0.1:8000/courses/',
+          data: {
+              origin: this.origin,
+              destination: this.destination
+          },
+          auth: {
+              username: 'admin',
+              password: 'destacametest'
+          }
+        }).then((response) => {
+          this.getCourses() // Update Table
+          this.origin = ''
+          this.destination = ''
+        }).catch((error) => {
+          console.log(error) // Print error on console
+        })
       },
 
-      deleteBus(bus_id) {
-        // Delete items from Buses Model using axios to connect to the backend
+      deleteCourse(course_id) {
+        // Delete items from Courses Model using axios to connect to the backend
         axios({
           method: 'delete',
-          url: 'http://127.0.0.1:8000/buses/' + bus_id + '/',
+          url: 'http://127.0.0.1:8000/courses/' + course_id + '/',
           auth: {
             username: 'admin',
             password: 'destacametest'
           }
         }).then(response => { // Delete the item from the table
-            const index = this.items.findIndex(item => item.bus_id === bus_id) // find index on table
+            const index = this.items.findIndex(item => item.course_id === course_id) // find index on table
             this.totalRows -= 1
             if (~index) // check if the item exists
               this.items.splice(index, 1) // Delete 
         });
       },
 
-      updateBus(bus_id, seats) {
-        // Update items from Buses Model using axios to connect to the backend
+      updateCourse(course_id, origin, destination) {
+        // Update items from Courses Model using axios to connect to the backend
         axios({
           method: 'put',
           data: {
-            seats: seats
+            origin: origin,
+            destination: destination
           },
-          url: 'http://127.0.0.1:8000/buses/' + bus_id + '/',
+          url: 'http://127.0.0.1:8000/courses/' + course_id + '/',
           auth: {
             username: 'admin',
             password: 'destacametest'
@@ -263,9 +351,10 @@ import axios from 'axios';
 
       info(item, index, button) {
         // Opens the modal with item information
-          this.infoModal.title = "Editar Bus: " + item.bus_id
-          this.infoModal.seats = item.seats
-          this.infoModal.bus_id = item.bus_id
+          this.infoModal.title = "Editar Trayecto " + item.course_id
+          this.infoModal.course_id = item.course_id
+          this.infoModal.origin = item.origin
+          this.infoModal.destination = item.destination
           this.$root.$emit('bv::show::modal', this.infoModal.id, button)
       },
 
