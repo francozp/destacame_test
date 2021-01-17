@@ -6,6 +6,8 @@ import Statistics from '../views/Statistics'
 import Buses from '../views/Buses'
 import Passengers from '../views/Passengers'
 import Courses from '../views/Courses'
+import Drivers from '../views/Drivers'
+import Trips from '../views/Trips'
 
 Vue.use(VueRouter)
 
@@ -48,6 +50,22 @@ const routes = [
     component: Courses,
     meta: {
       title: 'Destacame-Buses: Trayectos',
+    }
+  },
+  {
+    path: '/choferes',
+    name: 'Drivers',
+    component: Drivers,
+    meta: {
+      title: 'Destacame-Buses: Choferes',
+    }
+  },
+  {
+    path: '/trips',
+    name: 'Trips',
+    component: Trips,
+    meta: {
+      title: 'Destacame-Buses: Crear Viaje',
     }
   },
   {

@@ -4,6 +4,8 @@ from django.views.generic import TemplateView
 from rest_framework import viewsets
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.decorators import action
 
 from .models import Buses, Passengers, Drivers, Courses, Trips
 from .serializers import (BusSerializer, PassengerSerializer, CourseSerializer,
@@ -33,6 +35,18 @@ class CourseViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     queryset = Courses.objects.all()
     serializer_class = CourseSerializer
+
+    @action(detail=False)
+    def get_origins(self, request):
+        origins = Courses.objects.all().values('origin').distinct()
+        return Response(origins)
+
+    @action(detail=False)
+    def get_destinations(self, request, origin=None):
+        origin = request.query_params.get('origin')
+        courses = Courses.objects.filter(origin=origin)
+        serializer = self.get_serializer(courses, many=True)
+        return Response(serializer.data)
 
 
 class TripViewSet(viewsets.ModelViewSet):

@@ -7,13 +7,14 @@
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav class="ml-auto">
             <b-navbar-nav class="navbar-light">
-            <b-link class="nav-link" to="/" exact>Viaje</b-link>
+            <b-link class="nav-link" to="/" exact>Reserva de Asientos</b-link>
+            <b-link class="nav-link" to="/trips" exact>Crear Viaje</b-link>
             <b-link class="nav-link" to="/statistics" exact>Estadísticas</b-link>
             <b-nav-item-dropdown text="Administrar">
                 <b-dropdown-item class="nav-link" to="/buses" exact>Buses</b-dropdown-item>
                 <b-dropdown-item class="nav-link" to="/pasajeros" exact>Pasajeros</b-dropdown-item> 
                 <b-dropdown-item class="nav-link" to="/trayectos" exact>Trayectos</b-dropdown-item>
-                <b-dropdown-item class="nav-link" exact>Choferes</b-dropdown-item>
+                <b-dropdown-item class="nav-link" to="/choferes" exact>Choferes</b-dropdown-item>
             </b-nav-item-dropdown>
             </b-navbar-nav>
         </b-collapse>

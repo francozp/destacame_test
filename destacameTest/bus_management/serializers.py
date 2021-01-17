@@ -24,10 +24,10 @@ class DriverSerializer(serializers.HyperlinkedModelSerializer):
 class CourseSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Courses
-        fields = ('course_id','origin','destination')
+        fields = ('course_id', 'origin', 'destination')
 
 
 class TripSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Trips
-        fields = ('trip_id','driver_rut','course_id','bus_id', 'departure_time', 'seats_taken')
+        fields = ('trip_id', 'driver_rut', 'course_id', 'bus_id', 'departure_time', 'seats_taken')
