@@ -149,7 +149,7 @@ class Drivers(models.Model):
 
 
 class PassengerSeats(models.Model):
-    trip = models.ForeignKey('Trips', models.DO_NOTHING)
+    trip_id = models.IntegerField()
     passenger_rut = models.ForeignKey('Passengers', models.DO_NOTHING, db_column='passenger_rut')
     seat = models.IntegerField()
 
@@ -170,11 +170,12 @@ class Passengers(models.Model):
 
 
 class Trips(models.Model):
-    trip_id = models.IntegerField(primary_key=True)
-    driver_rut = models.ForeignKey(Drivers, models.DO_NOTHING, db_column='driver_rut')
+    trip_id = models.AutoField(primary_key=True)
+    driver = models.ForeignKey(Drivers, models.DO_NOTHING)
     course = models.ForeignKey(Courses, models.DO_NOTHING)
+    departure_date = models.DateField()
     bus = models.ForeignKey(Buses, models.DO_NOTHING)
-    departure_time = models.DateTimeField()
+    departure_time = models.TimeField()
     seats_taken = models.IntegerField()
 
     class Meta:

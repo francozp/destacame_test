@@ -18,7 +18,7 @@ from django.urls import path, include
 
 from rest_framework import routers
 
-from bus_management.views import (IndexView, BusViewSet, CourseViewSet, 
+from bus_management.views import (IndexView, BusViewSet, CourseViewSet,
                                   DriverViewSet, TripViewSet, PassengerViewSet)
 
 router = routers.DefaultRouter()
