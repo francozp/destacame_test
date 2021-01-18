@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView
-
+from django.db.models import Avg
 from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.authentication import BasicAuthentication
@@ -27,8 +27,14 @@ class BusViewSet(viewsets.ModelViewSet):
 class PassengerViewSet(viewsets.ModelViewSet):
     authentification_classes = (BasicAuthentication,)
     permission_classes = (IsAuthenticated,)
-    queryset = Passengers.objects.all()
     serializer_class = PassengerSerializer
+    queryset = Passengers.objects.all()
+
+    def retrieve(self, request, pk=None):
+        queryset = Passengers.objects.all()
+        passenger = get_object_or_404(queryset, pk=pk)
+        serializer = PassengerSerializer(passenger)
+        return Response(serializer.data)
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -55,6 +61,19 @@ class TripViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     queryset = Trips.objects.all()
     serializer_class = TripSerializer
+
+    @action(detail=False)
+    def get_trips_mean(self, request):
+        trips = Trips.objects.values('course_id').annotate(Avg('seats_taken'))
+        return Response(trips)
+
+    @action(detail=False)
+    def get_bus_capacity(self, request, course_id=None, N=None):
+        course_id = request.query_params.get('course_id')
+        N = request.query_params.get('N')
+        buses = Trips.objects.filter(course_id=course_id).filter(seats_taken__gt=N).values('bus_id')
+        print(buses)
+        return Response(buses)
 
 
 class DriverViewSet(viewsets.ModelViewSet):

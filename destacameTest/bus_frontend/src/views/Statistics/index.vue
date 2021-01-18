@@ -3,12 +3,6 @@
   <div class="statistics">
     <h1>This is an about page</h1>
 
-    <b-card title="Bus" sub-title="Card subtitle" v-for="bus in buses" v-bind:data="bus" v-bind:key="bus.bus_id">
-        <b-card-text>
-         Este es un bus. Probando conexión con backend. {{ bus.seats }}
-        </b-card-text>
-    </b-card>
-
   </div>
 </template>
 
@@ -19,23 +13,45 @@ export default {
   name: 'Statistics',
   data () {
     return {
-      buses: []
+      buses: [],
+      trips: [],
+      course_id: 4,
+      percentage: 5
     }
   },
   mounted () {
-    this.getBuses()
+    this.get_trips_mean(),
+    this.get_bus_capacity()
   },
   methods: {
-    getBuses() {
+    get_trips_mean(){
       axios({
-        method: 'get',
-        url: 'http://127.0.0.1:8000/buses/',
-        auth: {
-          username: 'admin',
-          password: 'destacametest'
-        }
-      }).then(response => this.buses = response.data)
-    }
+          method: 'get',
+          url: 'http://127.0.0.1:8000/trips/get_trips_mean',
+          //Authentification
+          auth: {
+            username: 'admin',
+            password: 'destacametest'
+          }
+      }).then((response) => {
+        this.trips = response.data // Assign retrieved items
+        console.log(this.trips)
+      })
+    },
+    get_bus_capacity(){
+      axios({
+          method: 'get',
+          url: 'http://127.0.0.1:8000/trips/get_bus_capacity/?course_id=' + this.course_id + '&N=' + this.percentage,
+          //Authentification
+          auth: {
+            username: 'admin',
+            password: 'destacametest'
+          }
+      }).then((response) => {
+        this.buses = response.data // Assign retrieved items
+        console.log(this.buses)
+      })
+    },
   }
 }
 </script>

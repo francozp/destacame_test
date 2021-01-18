@@ -7,7 +7,7 @@
         <b-col class="footer-col">
             <ul style="padding-inline-start: 180px; text-align:left;list-style:none">
             <li>Destacame Buses</li>
-            <li><router-link class="footer-link" to="/">Reserva de Asientos</router-link></li>
+            <li><router-link class="footer-link" to="/">Buscar Viajes</router-link></li>
             <li><router-link class="footer-link" to="/trips">Crear Viaje</router-link></li>
             <li><router-link class="footer-link" to="/about">Estadísticas</router-link></li>
             </ul>

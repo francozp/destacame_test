@@ -7,7 +7,7 @@
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav class="ml-auto">
             <b-navbar-nav class="navbar-light">
-            <b-link class="nav-link" to="/" exact>Reserva de Asientos</b-link>
+            <b-link class="nav-link" to="/" exact>Buscar Viajes</b-link>
             <b-link class="nav-link" to="/trips" exact>Crear Viaje</b-link>
             <b-link class="nav-link" to="/statistics" exact>Estadísticas</b-link>
             <b-nav-item-dropdown text="Administrar">

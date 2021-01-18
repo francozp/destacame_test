@@ -1,6 +1,6 @@
 <template>
 <b-form v-on:submit.prevent="addTrip" class="w-100 h-100">
-  <div class="row">
+  <div class="row pt-3 pb-3">
     <b-col cols="12" md="8">
       <!-- Trip Creation Card -->
       <b-card class="w-100 shadow-lg rounded" bg-variant="destacame" text-variant="white">
