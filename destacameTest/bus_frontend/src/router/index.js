@@ -8,6 +8,7 @@ import Passengers from '../views/Passengers'
 import Courses from '../views/Courses'
 import Drivers from '../views/Drivers'
 import Trips from '../views/Trips'
+import Service from '../views/Service'
 
 Vue.use(VueRouter)
 
@@ -17,7 +18,7 @@ const routes = [
     name: 'Home',
     component: Home,
     meta: {
-      title: 'Destacame-Buses: Home',
+      title: 'Destacame-Buses: Buscar Viaje',
     }
   },
   {
@@ -66,6 +67,14 @@ const routes = [
     component: Trips,
     meta: {
       title: 'Destacame-Buses: Crear Viaje',
+    }
+  },
+  {
+    path: '/service',
+    name: 'Service',
+    component: Service,
+    meta: {
+      title: 'Destacame-Buses: Seleccionar Viaje',
     }
   },
   {

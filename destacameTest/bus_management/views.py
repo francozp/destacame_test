@@ -30,12 +30,6 @@ class PassengerViewSet(viewsets.ModelViewSet):
     serializer_class = PassengerSerializer
     queryset = Passengers.objects.all()
 
-    def retrieve(self, request, pk=None):
-        queryset = Passengers.objects.all()
-        passenger = get_object_or_404(queryset, pk=pk)
-        serializer = PassengerSerializer(passenger)
-        return Response(serializer.data)
-
 
 class CourseViewSet(viewsets.ModelViewSet):
     authentification_classes = (BasicAuthentication,)

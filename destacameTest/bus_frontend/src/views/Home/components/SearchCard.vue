@@ -1,28 +1,37 @@
 <template>
 <!--v-on:submit.prevent="searchTrip"-->
-<b-form  class="w-100 h-100">
+<b-form  class="w-100 h-100" v-on:submit.prevent="searchTrips">
     <b-row class= "pb-3 pt-3">
         <b-col></b-col>
         <b-col cols="12" md="8">
             <b-card class="w-100 shadow-lg rounded" bg-variant="destacame" text-variant="white">
                 <b-container class="pl-4 pr-4 pt-4 pb-4">
                 <b-row>
-                    <b-card-title>Buscar Viajes</b-card-title>
+                    <b-col>
+                    <b-card-title class="float-left">Buscar Viajes</b-card-title>
+                    </b-col>
+                    <b-col>
+                    </b-col>
                 </b-row>
                 <b-row class="pb-3">
                  <!-- RutInput -->
-                <b-col class="my-1">
+                <b-col cols=12 md=6 class="my-1">
                     <label class="float-left" for="rut">Rut del Pasajero</label>
                     <b-form-input 
                         required
+                        :state="passengerState"
                         id= "rut"
                         size="md"
                         v-model="rut"
-                        type="text">
-                    </b-form-input>
+                        @change = "searchPassenger()"
+                        aria-describedby="invalid-passenger">
+                        </b-form-input>
+                        <b-form-invalid-feedback id="invalid-passenger" style="color:white">  
+                        No existe un pasajero con este Rut.
+                        </b-form-invalid-feedback>
                 </b-col>   
                 <!-- Date Input -->
-                <b-col class="my-1">
+                <b-col cols=12 md=6 class="my-1">
                     <label class="float-left" for="date">Fecha</label>
                     <b-form-input 
                         :min= 'today' 
@@ -36,7 +45,7 @@
                 </b-row>
                     <!-- Origin/Destination selects -->
                 <b-row class="pb-3">
-                <b-col class="my-1">
+                <b-col cols=12 md=6 class="my-1">
                     <label class="float-left" for="origin">Origen</label>
                     <b-form-select 
                     id="origin"
@@ -51,7 +60,7 @@
                     </b-form-select>
                 </b-col>
                 <!-- Destination's based on origin -->
-                <b-col class="my-1">
+                <b-col cols=12 md=6 class="my-1">
                     <label class="float-left" for="destination">Destino</label>
                     <b-form-select 
                     id="course_id" 
@@ -71,7 +80,6 @@
                         type="submit"
                         variant="light"
                         size="md"
-                        @click = "searchPassenger()"
                         class="mt-3">
                     Buscar Viajes
                     </b-button>
@@ -97,14 +105,26 @@ export default {
         destinations: [],
         origin_selected: '',
         course_selected: '',
-        rut: '',
+        rut: '18640994',
         passenger: null,
       }
   },
   mounted() {
     this.today = this.day.getFullYear() + '-' + ('0' + (this.day.getMonth() + 1)).slice(-2) + '-' + (this.day.getDate()),
-    this.getCourses()
+    this.getCourses(),
+    this.searchPassenger()
   },
+    computed: {
+      passengerState() {
+        console.log(this.passenger);
+        if(this.passenger){
+            return true
+        }
+        else{
+            return false
+        }
+        }
+      },
   methods: {
     getCourses() {
         // Obtain items from Courses Model using axios to connect to the backend
@@ -138,16 +158,22 @@ export default {
     searchPassenger(){
         axios({
             method: 'get',
-            url: 'http://127.0.0.1:8000/passengers/' + this.rut,
             //Authentification
+            url: 'http://127.0.0.1:8000/passengers/'+this.rut+'/',
             auth: {
                 username: 'admin',
                 password: 'destacametest'
             }
         }).then((response) => {
-          this.passenger = response.data // Assign retrieved items
-          console.log(this.passenger)
+          this.passenger = response.data
+        }).catch((error) => {
+          console.log(error) // Print error on console
+          this.passenger = null
         })
+    },
+    searchTrips(){
+        console.log("Holi")
+        this.$router.push({path: '/service', query:{rut: this.rut, date: this.date, course: this.course_selected}})
     }
   }
 }
