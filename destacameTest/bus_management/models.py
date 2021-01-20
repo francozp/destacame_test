@@ -99,7 +99,8 @@ class DjangoAdminLog(models.Model):
     object_repr = models.CharField(max_length=200)
     action_flag = models.PositiveSmallIntegerField()
     change_message = models.TextField()
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
+    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING,
+                                     blank=True, null=True)
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
 
     class Meta:
@@ -150,7 +151,8 @@ class Drivers(models.Model):
 
 class PassengerSeats(models.Model):
     trip = models.ForeignKey('Trips', models.DO_NOTHING)
-    passenger_rut = models.ForeignKey('Passengers', models.DO_NOTHING, db_column='passenger_rut')
+    passenger_rut = models.ForeignKey('Passengers', models.DO_NOTHING,
+                                      db_column='passenger_rut')
     seat = models.IntegerField()
 
     class Meta:
