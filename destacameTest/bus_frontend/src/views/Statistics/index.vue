@@ -1,17 +1,15 @@
 <template>
-
   <div class="statistics">
-    <h2>Estadisticas</h2>
-        <trips-mean></trips-mean>
+    <h2 class="pb-3">Estadisticas</h2>
+        <statistics-table></statistics-table>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import TripsMean from './components/TripsMean.vue';
+import StatisticsTable from './components/StatisticsTable.vue';
 
 export default {
-  components: { TripsMean },
+  components: { StatisticsTable },
   name: 'Statistics',
   data () {
     return {

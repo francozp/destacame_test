@@ -1,3 +1,5 @@
+import math
+
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView
 from django.db.models import Avg
@@ -60,12 +62,14 @@ class TripViewSet(viewsets.ModelViewSet):
     @action(detail=False)
     def get_trips_mean(self, request):
         trips = Trips.objects.values('course_id').annotate(Avg('seats_taken'))
+        for trip in trips:
+            trip["percentage"] = 0
         return Response(trips)
 
     @action(detail=False)
     def get_bus_capacity(self, request, course_id=None, N=None):
         course_id = request.query_params.get('course_id')
-        N = request.query_params.get('N')
+        N = math.floor(float(request.query_params.get('N')))
         buses = Trips.objects.filter(course_id=course_id).filter(seats_taken__gt=N).values('bus_id')
         return Response(buses)
 
