@@ -219,6 +219,7 @@ import axios from 'axios';
         })
       },
       getBuses() {
+        // Get all the buses from Buses Model
         axios({
             method: 'get',
             url: 'http://127.0.0.1:8000/buses',
@@ -232,6 +233,7 @@ import axios from 'axios';
         })
       },
       getDrivers() {
+        // Get All Drivers from Drivers Model
         axios({
             method: 'get',
             url: 'http://127.0.0.1:8000/drivers',
@@ -245,6 +247,7 @@ import axios from 'axios';
         })
       },
       getDestination(){
+        // Get destinations from a specific origin
         axios({
             method: 'get',
             url: 'http://127.0.0.1:8000/courses/get_destinations/?origin=' + this.origin_selected,
@@ -264,6 +267,7 @@ import axios from 'axios';
         this.course = "Trayecto " + this.course_selected
       },
       addTrip(){
+        // Create the Trip Object
         axios({
           method: 'post',
           url: 'http://127.0.0.1:8000/trips/',
@@ -280,6 +284,7 @@ import axios from 'axios';
               password: 'destacametest'
           }
         }).then((response) => {
+          // Reset Fields
             this.date = ''
             this.time = ''
             this.destination = '-'
@@ -300,5 +305,4 @@ import axios from 'axios';
 .bg-destacame {
     background-color: #126fe9!important;
 }
-
 </style>

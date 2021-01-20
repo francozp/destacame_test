@@ -37,7 +37,6 @@
         <b-container fluid>
           <b-form v-on:submit.prevent="addDriver">
             <!-- Inputs -->
-            <!-- Seats -->
             <b-row class="mb-1">
                 <b-col>RUT</b-col>
                 <b-col>
@@ -290,6 +289,7 @@ import axios from 'axios';
     },
     computed: {
       rutState() {
+        // Verify state of Rut Input
         if(this.rut.length <= 8 & this.rut.length > 6 & !isNaN(this.rut)){
           return true
         }
@@ -300,6 +300,7 @@ import axios from 'axios';
           return false
         }
       },
+      // Verify state of Name Input
       nameState() {
         if(this.name.length > 0 & this.name.length <= 30){
           return true
@@ -311,6 +312,7 @@ import axios from 'axios';
           return false
         }
       },
+      // Verify state of LastName Input
       lastnameState() {
         if(this.lastname.length > 0 & this.lastname.length <= 30){
           return true
@@ -324,6 +326,7 @@ import axios from 'axios';
       }
     },
     methods: {
+      // Check the state of the modal for hide it
       checkModal(){
         if(this.rutState & this.nameState & this.lastnameState){
          this.show = false
@@ -347,7 +350,6 @@ import axios from 'axios';
 
       addDriver() {
         // Create items from Drivers Model using axios to connect to the backend
-        // Check if seats value exists
         axios({
           method: 'post',
           url: 'http://127.0.0.1:8000/drivers/',

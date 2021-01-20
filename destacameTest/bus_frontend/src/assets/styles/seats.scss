@@ -1,0 +1,44 @@
+.card-text {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.seat {
+  display: flex;
+  flex: 0 0 14.28571428571429%;
+  padding: 1px;
+  position: relative;  
+  &:nth-child(3) {
+    margin-right: 14.28571428571429%;
+  }
+  input[type=radio] {
+    position: absolute;
+    opacity: 0;
+    + label {
+      color:white;
+      border-top-left-radius: 25%;
+      border-top-right-radius: 25%;
+      background: #83b8ff;
+    }
+  }
+  input[type=radio]:checked {
+    + label {
+      background: #126fe9;      
+    }
+  }
+  input[type=radio]:disabled {
+    + label {
+      background: rgb(210, 210, 210);
+      overflow: hidden;
+    }
+    }
+}
+
+.leyend{
+  color:white;
+  border-top-left-radius: 25%;
+  border-top-right-radius: 25%;
+  background: rgb(210, 210, 210);
+  padding-top: 1.8rem;
+  padding-left: 1.3rem;
+}

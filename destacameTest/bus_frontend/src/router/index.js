@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
 import Home from '../views/Home'
 import Statistics from '../views/Statistics'
 import Buses from '../views/Buses'
@@ -89,7 +88,7 @@ const router = new VueRouter({
   routes
 })
 
-// Obtained from https://www.digitalocean.com/community/tutorials/vuejs-vue-router-modify-head
+// Put Title a Metadata to website --> Obtained from https://www.digitalocean.com/community/tutorials/vuejs-vue-router-modify-head
 router.beforeEach((to, from, next) => {
   // This goes through the matched routes from last to first, finding the closest route with a title.
   // eg. if we have /some/deep/nested/route and /some, /deep, and /nested have titles, nested's will be chosen.

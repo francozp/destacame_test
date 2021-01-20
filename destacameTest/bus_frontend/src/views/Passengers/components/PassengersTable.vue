@@ -263,11 +263,11 @@ import axios from 'axios';
           birthday: '1990-01-01',
           // Fields of table
           fields: [
-          { key: 'rut', label: 'RUT', sortable: true, sortDirection: 'desc' },
-          { key: 'name', label: 'Nombre', sortable: true, class: 'text-center' },
-          { key: 'lastname', label: 'Apellido', sortable: true},
-          { key: 'birthday', label: 'Fecha de Nacimiento', sortable: true },
-          { key: 'actions', label: 'Actions' },
+            { key: 'rut', label: 'RUT', sortable: true, sortDirection: 'desc' },
+            { key: 'name', label: 'Nombre', sortable: true, class: 'text-center' },
+            { key: 'lastname', label: 'Apellido', sortable: true},
+            { key: 'birthday', label: 'Fecha de Nacimiento', sortable: true },
+            { key: 'actions', label: 'Actions' },
           ],
           totalRows: 15,
           currentPage: 1,
@@ -286,10 +286,11 @@ import axios from 'axios';
       }
     },
     mounted() {
-        this.getPassengers()    
+        this.getPassengers() //Retrieve data for the table   
     },
     computed: {
       rutState() {
+        // Verify state of Rut Input
         if(this.rut.length <= 8 & this.rut.length > 6 & !isNaN(this.rut)){
           return true
         }
@@ -301,6 +302,7 @@ import axios from 'axios';
         }
       },
       nameState() {
+        // Verify state of Name Input
         if(this.name.length > 0 & this.name.length <= 30){
           return true
         }
@@ -312,6 +314,7 @@ import axios from 'axios';
         }
       },
       lastnameState() {
+        // Verify state of LastName Input
         if(this.lastname.length > 0 & this.lastname.length <= 30){
           return true
         }
@@ -324,6 +327,7 @@ import axios from 'axios';
       }
     },
     methods: {
+      // Check the state of the modal for hide it
       checkModal(){
         if(this.rutState & this.nameState & this.lastnameState){
          this.show = false

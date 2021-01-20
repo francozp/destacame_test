@@ -8,7 +8,6 @@
 
 <script>
 import BusesTable from './components/BusesTable.vue';
-
 export default {
   name: 'Buses',
   components: {

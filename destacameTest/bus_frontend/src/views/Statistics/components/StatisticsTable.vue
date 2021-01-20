@@ -1,32 +1,32 @@
 <template>
 <b-container>
   <!-- Statistics table -->
-  <b-table
-      :items="items"
-      :fields="fields"
-      :current-page="currentPage"
-      :per-page="perPage"
-      :filter="filter"
-      stacked="md"
-      show-empty
-      small
-      @filtered="onFiltered"
-  >
-    <template #cell(course_id)="row">
-        {{ row.item.course_id }}
-    </template>
-    <template #cell(actions)="row">
-      <div>
-        <!-- Percentage Input by Row -->
-        <b-form-input type="number" min=1 max=99 v-model="row.item.percentage" variant="info" size="sm" style="width: 20%;display:inline">
-        </b-form-input>
-        <b-button variant="info" size="sm" @click="info(row.item, row.index, $event.target)">
-          Filtrar
-        </b-button>
-      </div>
-    </template>
-  </b-table>
-  <b-row>
+    <b-table
+        :items="items"
+        :fields="fields"
+        :current-page="currentPage"
+        :per-page="perPage"
+        :filter="filter"
+        stacked="md"
+        show-empty
+        small
+        @filtered="onFiltered"
+    >
+      <template #cell(course_id)="row">
+          {{ row.item.course_id }}
+      </template>
+      <template #cell(actions)="row">
+        <div>
+          <!-- Percentage Input by Row -->
+          <b-form-input type="number" min=1 max=99 v-model="row.item.percentage" variant="info" size="sm" style="width: 20%;display:inline">
+          </b-form-input>
+          <b-button variant="info" size="sm" @click="info(row.item, row.index, $event.target)">
+            Filtrar
+          </b-button>
+        </div>
+      </template>
+    </b-table>
+    <b-row>
       <!-- Pagination -->
      <b-col sm="5" md="6" class="my-1">
        <b-pagination
@@ -62,6 +62,7 @@
       </b-col>
       <!-- End of Per Page -->
     </b-row>
+
   <!-- Modal that shows filtered buses by course -->
   <div class="float-left">
     <b-modal :id="infoModal.id" :title="infoModal.title" hide-footer ok-only header-text-variant="primary">
@@ -86,7 +87,7 @@
         
         </template>
         <template v-else>
-          No hay buses que cumplan esta ocupación para este trayecto
+          No hay buses que cumplan este porcentaje de ocupación para este trayecto
         </template>
       </b-container>
     </b-modal>
@@ -98,7 +99,7 @@
 import axios from 'axios'
 
 export default {
-  name: 'TripsMean',
+  name: 'StatisticsTable',
   data () {
     return {
       items: [],

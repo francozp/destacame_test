@@ -37,7 +37,6 @@
         <b-container fluid>
           <b-form v-on:submit.prevent="addCourse">
             <!-- Inputs -->
-            <!-- Seats -->
             <b-row class="mb-1">
                 <b-col>Origen</b-col>
                 <b-col>
@@ -223,10 +222,10 @@ import axios from 'axios';
           destination: '',
           // Fields of table
           fields: [
-          { key: 'course_id', label: 'Id del trayecto', sortable: true, sortDirection: 'desc' },
-          { key: 'origin', label: 'Origen', sortable: true, class: 'text-center' },
-          { key: 'destination', label: 'Destino', sortable: true, class: 'text-center' },
-          { key: 'actions', label: 'Actions' },
+            { key: 'course_id', label: 'Id del trayecto', sortable: true, sortDirection: 'desc' },
+            { key: 'origin', label: 'Origen', sortable: true, class: 'text-center' },
+            { key: 'destination', label: 'Destino', sortable: true, class: 'text-center' },
+            { key: 'actions', label: 'Actions' },
           ],
           totalRows: 15,
           currentPage: 1,
@@ -245,9 +244,11 @@ import axios from 'axios';
       }
     },
     mounted() {
-        this.getCourses()    
+      // Retrieve data for table
+      this.getCourses()    
     },
     computed: {
+      // Verify state of Origin Input
       originState() {
         if(this.origin.length > 0 & this.origin.length <= 30){
           return true
@@ -259,6 +260,7 @@ import axios from 'axios';
           return false
         }
       },
+      // Verify state of Destination Input
       destinationState() {
         if(this.destination.length > 0 & this.destination.length <= 30){
           return true
@@ -273,6 +275,7 @@ import axios from 'axios';
     },
     methods: {
       checkModal(){
+        // Check the state of the modal for hide it
         if(this.originState & this.destinationState){
          this.show = false
         }
@@ -295,7 +298,6 @@ import axios from 'axios';
 
       addCourse() {
         // Create items from Courses Model using axios to connect to the backend
-        // Check if seats value exists
         axios({
           method: 'post',
           url: 'http://127.0.0.1:8000/courses/',

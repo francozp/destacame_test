@@ -10,8 +10,7 @@
         label-size="sm"
         class="mb-3"
       >
-
-        <!-- The Filter -->
+         <!-- The Filter -->
         <b-input-group size="sm">
           <b-form-input 
             id="filter-input"
@@ -27,7 +26,6 @@
         </b-input-group>
       </b-form-group>
     </div>
-    <!-- End Search Bar --> 
 
     <!-- Bus Creation --> 
     <div class="float-left">
@@ -72,7 +70,6 @@
       small
       @filtered="onFiltered"
     >
-
       <!-- Row Data -->
       <template #cell(bus_id)="row">
         {{ row.item.bus_id }}
@@ -130,29 +127,28 @@
     <div class="float-left">
       <b-modal :id="infoModal.id" :title="infoModal.title" hide-footer ok-only @hide="resetInfoModal" header-text-variant="primary">
         <b-container fluid>
-          <b-form>
           <!-- Form -->
-          <b-row class="mb-1 text-center">
+          <b-form>
+            <b-row class="mb-1 text-center">
               <b-col cols=2>Asientos</b-col>
               <b-col><b-form-input v-model="infoModal.seats" type="number"></b-form-input></b-col>
-          </b-row>
-          <!-- Submit and call updateBus -->
-          <div class="w-100">
-              <b-button
-                  type="submit"
-                  variant="primary"
-                  size="md"
-                  class="float-right mt-3"
-                  @click="updateBus(infoModal.bus_id, infoModal.seats)"
-              >
-              Editar
-              </b-button>
-          </div>
+            </b-row>
+            <!-- Submit and call updateBus -->
+            <div class="w-100">
+                <b-button
+                    type="submit"
+                    variant="primary"
+                    size="md"
+                    class="float-right mt-3"
+                    @click="updateBus(infoModal.bus_id, infoModal.seats)"
+                >
+                Editar
+                </b-button>
+            </div>
           </b-form>
         </b-container>
       </b-modal>
     </div>
-    <!-- End of Update Modal -->
   </b-container>
 </template>
 
@@ -161,76 +157,74 @@ import axios from 'axios';
   export default {
     data() {
       return {
-          items: [],
-          show: false,
-          seats: 10,
-          // Fields of table
-          fields: [
-          { key: 'bus_id', label: 'Id del bus', sortable: true, sortDirection: 'desc' },
-          { key: 'seats', label: 'Asientos por bus', sortable: true, class: 'text-center' },
-          { key: 'actions', label: 'Actions' },
-          ],
-          totalRows: 15,
-          currentPage: 1,
-          perPage: 5,
-          pageOptions: [5, 10, 15, 50],
-          sortBy: '',
-          sortDesc: false,
-          sortDirection: 'asc',
-          filter: null,
-          filterOn: [],
-          infoModal: {
-            id: 'info-modal',
-            title: '',
-            content: []
-          }
+        items: [],
+        show: false,
+        seats: 10,
+        // Fields of table
+        fields: [
+        { key: 'bus_id', label: 'Id del bus', sortable: true, sortDirection: 'desc' },
+        { key: 'seats', label: 'Asientos por bus', sortable: true, class: 'text-center' },
+        { key: 'actions', label: 'Actions' },
+        ],
+        totalRows: 15,
+        currentPage: 1,
+        perPage: 5,
+        pageOptions: [5, 10, 15, 50],
+        sortBy: '',
+        sortDesc: false,
+        sortDirection: 'asc',
+        filter: null,
+        filterOn: [],
+        infoModal: {
+          id: 'info-modal',
+          title: '',
+          content: []
+        }
       }
     },
     mounted() {
-        this.getBuses()    
+      this.getBuses()    
     },
     methods: {
+      // Obtain items from Buses Model using axios to connect to the backend
       getBuses() {
-        // Obtain items from Buses Model using axios to connect to the backend
         axios({
-            method: 'get',
-            url: 'http://127.0.0.1:8000/buses/',
-            //Authentification
-            auth: {
-              username: 'admin',
-              password: 'destacametest'
-            }
+          method: 'get',
+          url: 'http://127.0.0.1:8000/buses/',
+          //Authentification
+          auth: {
+            username: 'admin',
+            password: 'destacametest'
+          }
         }).then((response) => {
           this.items = response.data // Assign retrieved items
           this.totalRows = this.items.length // Update rows qty from table
         })
       },
-
+      // Create items from Buses Model using axios to connect to the backend
       addBus() {
-        // Create items from Buses Model using axios to connect to the backend
         // Check if seats value exists
         if (this.seats) {
-            axios({
-              method: 'post',
-              url: 'http://127.0.0.1:8000/buses/',
-              data: {
-                  seats: this.seats
-              },
-              auth: {
-                  username: 'admin',
-                  password: 'destacametest'
-              }
-            }).then((response) => {
-              this.getBuses() // Update Table
-              this.seats = 10
-            }).catch((error) => {
-              console.log(error) // Print error on console
-            })
+          axios({
+            method: 'post',
+            url: 'http://127.0.0.1:8000/buses/',
+            data: {
+                seats: this.seats
+            },
+            auth: {
+                username: 'admin',
+                password: 'destacametest'
+            }
+          }).then((response) => {
+            this.getBuses() // Update Table
+            this.seats = 10
+          }).catch((error) => {
+            console.log(error) // Print error on console
+          })
         }
       },
-
+      // Delete items from Buses Model using axios to connect to the backend
       deleteBus(bus_id) {
-        // Delete items from Buses Model using axios to connect to the backend
         axios({
           method: 'delete',
           url: 'http://127.0.0.1:8000/buses/' + bus_id + '/',
@@ -240,14 +234,13 @@ import axios from 'axios';
           }
         }).then(response => { // Delete the item from the table
             const index = this.items.findIndex(item => item.bus_id === bus_id) // find index on table
-            this.totalRows -= 1
+            this.totalRows -= 1 // Change number of total rows in table
             if (~index) // check if the item exists
               this.items.splice(index, 1) // Delete 
         });
       },
-
+      // Update items from Buses Model using axios to connect to the backend
       updateBus(bus_id, seats) {
-        // Update items from Buses Model using axios to connect to the backend
         axios({
           method: 'put',
           data: {
@@ -260,23 +253,22 @@ import axios from 'axios';
           }
         })
       },
-
+      // Opens the modal with item information
       info(item, index, button) {
-        // Opens the modal with item information
-          this.infoModal.title = "Editar Bus: " + item.bus_id
-          this.infoModal.seats = item.seats
-          this.infoModal.bus_id = item.bus_id
-          this.$root.$emit('bv::show::modal', this.infoModal.id, button)
+        this.infoModal.title = "Editar Bus: " + item.bus_id
+        this.infoModal.seats = item.seats
+        this.infoModal.bus_id = item.bus_id
+        this.$root.$emit('bv::show::modal', this.infoModal.id, button)
       },
-
+      // Reset Info Modal
       resetInfoModal() {
-          this.infoModal.title = ''
-          this.infoModal.content = []
+        this.infoModal.title = ''
+        this.infoModal.content = []
       },
+      // Trigger pagination to update the number of buttons/pages due to filtering
       onFiltered(filteredItems) {
-          // Trigger pagination to update the number of buttons/pages due to filtering
-          this.totalRows = filteredItems.length
-          this.currentPage = 1
+        this.totalRows = filteredItems.length
+        this.currentPage = 1
       }
     }
   }
