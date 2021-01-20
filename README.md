@@ -1,11 +1,12 @@
 # Destacame Test
 ## Description
-Test para postulación a Destacame en el cargo de Full Stack Developer
+Test para postulación a Destacame en el cargo de Full Stack Developer el cual consiste en una plataforma para gestionar los viajes de una agencia de buses.
 
-## Setup
+## Configuración
+A continuación se explicarán los pasos a seguir para hacer funcionar el proyecto.
 ### Instalación de python 3.9.1
-1. El primer paso es instalar Python 3.9.1. Para hacer esto, dirijase a esta página <https://www.python.org/downloads/release/python-391/> y descargue el archivo que corresponda a las especificiaciones de su sistema.
-2. Siga las instrucciones en pantalla para llevar a cabo la instalación. Recuerde marca la casilla de agregar python al PATH.
+1. El primer paso es instalar Python 3.9.1. Para hacer esto, dirijase a esta página <https://www.python.org/downloads/release/python-391/> y descargue el archivo que corresponda a las especificaciones de su sistema.
+2. Siga las instrucciones en pantalla para llevar a cabo la instalación. Recuerde marcar la casilla de agregar python al PATH de su sistema.
 ### Creación del entorno virtual
 Python 3 en adelante trae incorporando un paquete llamado venv que permite gestionar entornos virtuales. Para el desarrollo de esta prueba y su futura evaluación se recomienda la utilización del mismo. Para hacer esto se deben ejecutar los siguientes comandos:
 1. python -m venv <nombre-del-directorio>, donde el nombre-del-directorio corresponde a la ubicación donde será creado el entorno virtual.
