@@ -149,10 +149,11 @@ class Drivers(models.Model):
 
 
 class PassengerSeats(models.Model):
-    trip_id = models.IntegerField()
-    passenger_rut = models.ForeignKey('Passengers', models.DO_NOTHING, db_column='passenger_rut')
+    trip = models.ForeignKey('Trips', models.DO_NOTHING)
+    passenger_rut = models.ForeignKey('Passengers', models.DO_NOTHING, 
+                                      db_column='passenger_rut')
     seat = models.IntegerField()
-
+    
     class Meta:
         managed = False
         db_table = 'passenger_seats'

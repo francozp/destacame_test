@@ -26,3 +26,7 @@ npm install bootstrap bootstrap-vue jquery popper.js (framework css, antes bulma
 
 db_admin = admin pw destacametest
 la aplicacion de vue tiene babel, router y css preprocessors = Sass/SCSS (with node-sass)
+
+npm i --save @fortawesome/fontawesome-svg-core
+npm i --save @fortawesome/free-solid-svg-icons
+npm i --save @fortawesome/vue-fontawesome

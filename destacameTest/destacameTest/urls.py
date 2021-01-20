@@ -19,7 +19,8 @@ from django.urls import path, include
 from rest_framework import routers
 
 from bus_management.views import (IndexView, BusViewSet, CourseViewSet,
-                                  DriverViewSet, TripViewSet, PassengerViewSet)
+                                  DriverViewSet, TripViewSet, PassengerViewSet,
+                                  PassengerSeatsViewSet)
 
 router = routers.DefaultRouter()
 router.register(r"buses", BusViewSet)
@@ -27,6 +28,7 @@ router.register(r"passengers", PassengerViewSet)
 router.register(r"courses", CourseViewSet)
 router.register(r"trips", TripViewSet)
 router.register(r"drivers", DriverViewSet)
+router.register(r'passenger_seats', PassengerSeatsViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

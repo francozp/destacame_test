@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Buses, Passengers, Drivers, Courses, Trips
+from .models import Buses, Passengers, Drivers, Courses, Trips, PassengerSeats
 
 
 class BusSerializer(serializers.ModelSerializer):
@@ -25,6 +25,17 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Courses
         fields = ('course_id', 'origin', 'destination')
+
+
+class PassengerSeatsSerializer(serializers.ModelSerializer):
+    passenger_rut = serializers.PrimaryKeyRelatedField(
+                queryset=Passengers.objects.all()
+                )
+    trip = serializers.PrimaryKeyRelatedField(queryset=Trips.objects.all())
+
+    class Meta:
+        model = PassengerSeats
+        fields = ('trip', 'passenger_rut', 'seat')
 
 
 class TripSerializer(serializers.ModelSerializer):

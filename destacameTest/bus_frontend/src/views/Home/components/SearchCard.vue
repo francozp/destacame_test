@@ -105,14 +105,13 @@ export default {
         destinations: [],
         origin_selected: '',
         course_selected: '',
-        rut: '18640994',
+        rut: '',
         passenger: null,
       }
   },
   mounted() {
     this.today = this.day.getFullYear() + '-' + ('0' + (this.day.getMonth() + 1)).slice(-2) + '-' + (this.day.getDate()),
-    this.getCourses(),
-    this.searchPassenger()
+    this.getCourses()
   },
     computed: {
       passengerState() {
@@ -172,7 +171,6 @@ export default {
         })
     },
     searchTrips(){
-        console.log("Holi")
         this.$router.push({path: '/service', query:{rut: this.rut, date: this.date, course: this.course_selected}})
     }
   }

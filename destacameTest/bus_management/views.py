@@ -8,9 +8,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
-from .models import Buses, Passengers, Drivers, Courses, Trips
+from .models import Buses, Passengers, Drivers, Courses, Trips, PassengerSeats
 from .serializers import (BusSerializer, PassengerSerializer, CourseSerializer,
-                          TripSerializer, DriverSerializer)
+                          TripSerializer, DriverSerializer,
+                          PassengerSeatsSerializer)
 
 
 class IndexView(TemplateView):
@@ -66,8 +67,15 @@ class TripViewSet(viewsets.ModelViewSet):
         course_id = request.query_params.get('course_id')
         N = request.query_params.get('N')
         buses = Trips.objects.filter(course_id=course_id).filter(seats_taken__gt=N).values('bus_id')
-        print(buses)
         return Response(buses)
+
+    @action(detail=False)
+    def get_trips(self, request, course=None, date=None):
+        course_id = request.query_params.get('course')
+        date = request.query_params.get('date')
+        trips = Trips.objects.filter(course_id=course_id, departure_date=date)
+        serializer = self.get_serializer(trips, many=True)
+        return Response(serializer.data)
 
 
 class DriverViewSet(viewsets.ModelViewSet):
@@ -75,3 +83,36 @@ class DriverViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     queryset = Drivers.objects.all()
     serializer_class = DriverSerializer
+
+
+class PassengerSeatsViewSet(viewsets.ModelViewSet):
+    authentification_classes = (BasicAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    queryset = PassengerSeats.objects.all()
+    serializer_class = PassengerSeatsSerializer
+
+    def list(self, request, trip_id=None):
+        trip_id = request.query_params.get('trip_id')
+        queryset = PassengerSeats.objects.filter(trip_id=trip_id)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False)
+    def get_seats(self, request, trip_id=None):
+        trip_id = request.query_params.get('trip_id')
+        queryset = PassengerSeats.objects.filter(trip_id=trip_id)
+        seats_layout = [[{"seat": 0, "state": 0}, {"seat": 1, "state": 0}],
+                        [{"seat": 2, "state": 0}, {"seat": 3, "state": 0}],
+                        [{"seat": 4, "state": 0}, {"seat": 5, "state": 0}],
+                        [{"seat": 6, "state": 0}, {"seat": 7, "state": 0}],
+                        [{"seat": 8, "state": 0}, {"seat": 9, "state": 0}]
+                        ]
+        for passengerSeat in queryset:
+            seat = passengerSeat.seat
+            if(passengerSeat.seat % 2):
+                row = int((passengerSeat.seat - 1)/2)
+                seats_layout[row][1]["state"] = -1
+            else:
+                row = int(passengerSeat.seat/2)
+                seats_layout[row][0]["state"] = -1
+        return Response(seats_layout)
