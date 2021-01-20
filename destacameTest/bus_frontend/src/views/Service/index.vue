@@ -1,5 +1,5 @@
 <template>
-    <div class="trips">
+    <div class="seatReservation">
      <b-card class="w-100 shadow-lg rounded mb-1"  bg-variant="destacame" text-variant="white">
         <b-card-body style="padding:0.5rem">
             <b-row class="pb-1 pt-1">
@@ -46,7 +46,7 @@
     <!-- Update Modal -->
     <div class="float-left">
       <b-modal :id="infoModal.id" :title="infoModal.title" hide-footer ok-only header-text-variant="primary">
-        <b-form>
+        <b-form v-on:submit.prevent="addSeatToTrip">
         <b-container class="px-5" fluid>
             <b-row>
             <b-col cols=4>
@@ -77,13 +77,13 @@
             </b-row>
         </b-container>
         <!-- Submit and call updateBus -->
-            <div class="w-100 pr-2">
+            <div class="w-100 pr-2">  
                 <b-button
                     type="submit"
                     variant="primary"
                     size="md"
                     class="float-right mt-3"
-                    @click="makeReservation()"
+                    @click="makeReservation"
                 >
                 Reservar Asientos
                 </b-button>
@@ -182,10 +182,20 @@ export default {
                     password: 'destacametest'
                 }
             }).then((response) => {
-                this.$router.push({path: '/'})
+              this.$router.push({ name: 'Home' })
         }).catch((error) => {
           console.log(error) // Print error on console
         })        
+      },
+      addSeatToTrip(){
+        axios({
+          method: 'get',
+          url: 'http://127.0.0.1:8000/trips/add_seat/?trip_id=' + this.trip,
+          auth: {
+                    username: 'admin',
+                    password: 'destacametest'
+          }
+        })
       }
     }
 }

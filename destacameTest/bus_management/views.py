@@ -77,6 +77,15 @@ class TripViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(trips, many=True)
         return Response(serializer.data)
 
+    @action(detail=False)
+    def add_seat(self, request, trip_id=None):
+        trip_id = request.query_params.get('trip_id')
+        queryset = Trips.objects.filter(trip_id=trip_id)
+        trip = queryset[0]
+        trip.seats_taken = trip.seats_taken + 1
+        trip.save()
+        return Response('')
+
 
 class DriverViewSet(viewsets.ModelViewSet):
     authentification_classes = (BasicAuthentication,)
