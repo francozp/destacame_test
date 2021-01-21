@@ -2,7 +2,7 @@
 ## Descripción
 Test para postulación a Destacame en el cargo de Full Stack Developer el cual consiste en una plataforma para gestionar los viajes de una agencia de buses.
 
-## Configuración
+## Configuración 🔧
 A continuación se explicarán los pasos a seguir para hacer funcionar el proyecto.
 ### Instalación de python 3.9.1
 1. El primer paso es instalar Python 3.9.1. Para hacer esto, dirijase a esta página <https://www.python.org/downloads/release/python-391/> y descargue el archivo que corresponda a las especificaciones de su sistema.
@@ -33,7 +33,7 @@ La base de datos utilizado en este proyecto corresponde a MySql. XAMPP es utiliz
 8. Presionar el botón GO.
 9. Ahora la base de datos está lista :)
 
-## ¿Cómo iniciar el proyecto Destacame Buses?
+## ¿Cómo iniciar el proyecto Destacame Buses? ⚙️
 Para iniciar el proyecto se deben seguir lo siguientes pasos.
 1. Abrir XAMPP e iniciar los servicios de MySQL y Apache.
 2. Abrir dos terminales.
@@ -42,16 +42,19 @@ Para iniciar el proyecto se deben seguir lo siguientes pasos.
 5. Ahora que está Django y Vue.js andando, dirigirse en algún browser al sitio http://localhost:8080/.
 6. Listo :)
   
-## ¿Cómo utilizarlo?
+## ¿Cómo utilizarlo? 
 En el sistema se han implementado todas las funciones requeridas. Para esto se han creado varias vistas. En la barra de navegación pueden ver 4 campos.
-  **1. Buscar Viajes:** En esta vista se pueden buscar viajes para un pasajero, de tal forma que este pueda reservar un asiento para un viaje en particular. Para buscar el viaje, se deben llenar los 4 campos solicitados. Rut del pasajero, el cual debe existir en la base de datos, la fecha, el origen y el destino. Una vez llenados los campos, se puede apretar el botón "Buscar Viajes". Trás presionarlo, se le redijirá a la vista de servicios.
-    **1a. Servicios:** En la vista de servicios aparecerán los servicios junto a sus horarios. Para seleccionar un asiento el algún servicio se debe presionar el botón "Ver Asientos" de ese servicio en particular. Esto abrirá un "pop-up" dentro del cual se mostrará la distribución de asientos del servicio seleccionado. Se podrá elegir un asiento que se encuentre disponible (azul claro, ver leyenda). Una vez seleccionado, presionar el botón "Reservar Asientos" y el asiento del pasajero será reservado. Luego será redirijido a la vista de Buscar Viajes nuevamente.
-  **2. Crear Viaje:** En esta vista se pueden crear nuevos viajes. Para crear el viaje, se deben llenar todos los campos. Los viajes asocian los trayectos, con un bus, un chofer y un horario. En esta vista los datos son obtenidos desde la base de datos, por lo que si aparecen en el campo, es porque ya existe. Una vez seleccionados todos los campos, presione el botón "Crear Viaje" y el viaje será creado.
-  **3. Estadísticas:**
-  **4. Administrar:**
+1. **Buscar Viajes:** En esta vista se pueden buscar viajes para un pasajero, de tal forma que este pueda reservar un asiento para un viaje en particular. Para buscar el viaje, se deben llenar los 4 campos solicitados. Rut del pasajero, el cual debe existir en la base de datos, la fecha, el origen y el destino. Una vez llenados los campos, se puede apretar el botón "Buscar Viajes". Trás presionarlo, se le redijirá a la vista de servicios.
+	1. **Servicios:** En la vista de servicios aparecerán los servicios junto a sus horarios. Para seleccionar un asiento el algún servicio se debe presionar el botón "Ver Asientos" de ese servicio en particular. Esto abrirá un "pop-up" dentro del cual se mostrará la distribución de asientos del servicio seleccionado. Se podrá elegir un asiento que se encuentre disponible (azul claro, ver leyenda). Una vez seleccionado, presionar el botón "Reservar Asientos" y el asiento del pasajero será reservado. Luego será redirijido a la vista de Buscar Viajes nuevamente.
+2. **Crear Viaje:** En esta vista se pueden crear nuevos viajes. Para crear el viaje, se deben llenar todos los campos. Los viajes asocian los trayectos, con un bus, un chofer y un horario. En esta vista los datos son obtenidos desde la base de datos, por lo que si aparecen en el campo, es porque ya existe. Una vez seleccionados todos los campos, presione el botón "Crear Viaje" y el viaje será creado.
+3. **Estadísticas:** En esta vista se pueden ver las "estadísticas". En primera instancia se listan los trayectos con su promedio de pasajeros. Luego, si se ingresa un valor entre 0 y 99 en el campo ubicado en la columna "Filtrar Buses" de algún trayecto y luego se presiona el botón filtrar, se mostrarán los buses de ese trayecto que tengan al menos ese porcentaje de su capacidad vendida.
+4. **Administrar:** Aquí se pueden elegir 4 opciones. Buses, Pasajeros, Trayectos o Choferes. En estas vistas se podrán realizar todas las operaciones CRUD. Es decir, en cada una se podrán crear, leer, actualizar y eliminar objetos correspondientes al modelo correspondiente a cada vista. En la parte superior izquierda encontrará un botón azul "Crear <objeto>", que al presionarlo desplegará un "Pop-up" donde podrá crearse el objeto. Para esto se deben ingresar los datos solicitados y luego presionar en crear. Por otra parte, al extremo derecho de este botón "Crear <Objeto>" se encuentra un filtro para poder buscar en la tabla. En la tabla misma se muestran los datos almacenados en la base de datos junto a dos botones de acción. En primer lugar está el editar, que desplegará una pop-up similar al de creación, donde se podrán editar los datos del objeto. En segundo lugar está el botón eliminar, que al presionarlo llevara a cabo la eliminación del objeto. Por último, al final de la tabla se encuentran opciones de paginación.
+	
+## Autor ✒️
+**Franco Rodolfo Zalavari Palma** - fzpalma@gmail.com
+
 ## Apunte, luego borrar 
 ### Orden de comandos ejecutados para instalar librerías
-1. pip install django
 npm install axios (para conectar con el backend)
 npm install bootstrap bootstrap-vue jquery popper.js (framework css, antes bulma)
 
