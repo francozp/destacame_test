@@ -16,6 +16,10 @@ from .serializers import (BusSerializer, PassengerSerializer, CourseSerializer,
                           PassengerSeatsSerializer)
 
 
+class IndexView(TemplateView):
+    template_name = "core/index.html"
+
+
 class BusViewSet(viewsets.ModelViewSet):
     """CRUD operations over Buses Model"""
     authentification_classes = (BasicAuthentication,)
