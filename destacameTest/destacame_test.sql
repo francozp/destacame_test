@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-01-2021 a las 05:08:37
+-- Tiempo de generación: 21-01-2021 a las 07:56:54
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 8.0.0
 
@@ -238,16 +238,11 @@ CREATE TABLE `buses` (
 --
 
 INSERT INTO `buses` (`bus_id`, `seats`) VALUES
-(50, 10),
-(53, 10),
-(54, 10),
-(55, 10),
-(56, 10),
-(57, 10),
-(58, 10),
-(59, 10),
-(60, 10),
-(61, 10);
+(1, 10),
+(2, 10),
+(3, 10),
+(4, 10),
+(5, 10);
 
 -- --------------------------------------------------------
 
@@ -267,7 +262,11 @@ CREATE TABLE `courses` (
 
 INSERT INTO `courses` (`course_id`, `origin`, `destination`) VALUES
 (1, 'Santiago', 'La Serena'),
-(4, 'Santiago', 'Concepción');
+(2, 'Santiago', 'Arica'),
+(3, 'Santiago', 'Concepción'),
+(4, 'La Serena', 'Santiago'),
+(5, 'Arica', 'Santiago'),
+(6, 'Concepción', 'Santiago');
 
 -- --------------------------------------------------------
 
@@ -400,8 +399,10 @@ CREATE TABLE `drivers` (
 --
 
 INSERT INTO `drivers` (`name`, `lastname`, `rut`, `birthday`) VALUES
-('Felipe', 'Vasques', 1234567, '1992-05-08'),
-('Juan', 'Toledo', 8666459, '1990-01-01');
+('Soteldo', 'Marilu', 1234569, '1984-02-02'),
+('Federico', 'Ruiz Tagle', 3546895, '1990-01-19'),
+('Alejandro', 'Ramirez', 3654897, '1957-01-01'),
+('Jose', 'Peñuelas', 6664589, '1990-01-01');
 
 -- --------------------------------------------------------
 
@@ -421,11 +422,10 @@ CREATE TABLE `passengers` (
 --
 
 INSERT INTO `passengers` (`rut`, `name`, `lastname`, `birthday`) VALUES
-(12456, 'Test', 'De Form', '1990-01-01'),
-(124545, '32132112', 'asda', '1990-01-01'),
-(1238745, 'Francisco', 'Saavedra', '1984-01-01'),
+(6989928, 'Rodolfo', 'Zalavari', '1962-01-03'),
+(8666404, 'Lilian', 'Palma', '1962-11-05'),
+(12345678, 'Juan', 'Perez', '1990-01-01'),
 (18640995, 'Franco', 'Zalavari', '1994-05-20'),
-(18645489, 'Hade', 'Ramos', '1997-05-05'),
 (18974727, 'Javier', 'Ramos', '1994-10-08');
 
 -- --------------------------------------------------------
@@ -446,28 +446,7 @@ CREATE TABLE `passenger_seats` (
 --
 
 INSERT INTO `passenger_seats` (`id`, `trip_id`, `passenger_rut`, `seat`) VALUES
-(53, 7, 18640995, 3),
-(54, 7, 18640995, 2),
-(55, 7, 18640995, 4),
-(56, 7, 18640995, 5),
-(57, 9, 18640995, 5),
-(58, 9, 18640995, 7),
-(59, 9, 18640995, 3),
-(60, 9, 18640995, 3),
-(61, 9, 18640995, 3),
-(62, 9, 18640995, 9),
-(63, 9, 18640995, 9),
-(64, 9, 18640995, 1),
-(65, 9, 18640995, 4),
-(66, 9, 18640995, 2),
-(67, 9, 18640995, 0),
-(68, 9, 18640995, 6),
-(69, 9, 18640995, 8),
-(70, 10, 18640995, 5),
-(71, 10, 18640995, 4),
-(72, 10, 18640995, 3),
-(73, 10, 18640995, 7),
-(74, 10, 18640995, 2);
+(1, 1, 18640995, 0);
 
 -- --------------------------------------------------------
 
@@ -490,16 +469,11 @@ CREATE TABLE `trips` (
 --
 
 INSERT INTO `trips` (`trip_id`, `driver_id`, `course_id`, `departure_date`, `bus_id`, `departure_time`, `seats_taken`) VALUES
-(1, 1234567, 1, '2021-01-01', 50, '01:17:00', 0),
-(2, 1234567, 4, '2021-01-19', 50, '03:24:00', 0),
-(3, 1234567, 4, '2021-01-19', 50, '04:39:00', 0),
-(4, 1234567, 1, '2021-01-12', 53, '16:21:11', 0),
-(5, 1234567, 4, '2021-01-22', 50, '21:04:00', 0),
-(6, 1234567, 4, '2021-01-20', 53, '15:55:00', 0),
-(7, 1234567, 1, '2021-01-20', 50, '01:23:00', 4),
-(8, 1234567, 1, '2021-01-21', 53, '03:55:00', 0),
-(9, 8666459, 4, '2021-01-24', 60, '09:00:00', 14),
-(10, 1234567, 1, '2021-01-23', 50, '10:00:00', 5);
+(1, 1234569, 1, '2021-01-30', 1, '04:55:00', 1),
+(2, 3546895, 4, '2021-01-28', 2, '05:57:00', 0),
+(3, 3546895, 1, '2021-01-30', 3, '06:57:00', 0),
+(4, 6664589, 1, '2021-01-30', 5, '07:00:00', 0),
+(5, 3546895, 5, '2021-01-26', 1, '08:00:00', 0);
 
 --
 -- Índices para tablas volcadas
@@ -663,13 +637,13 @@ ALTER TABLE `auth_user_user_permissions`
 -- AUTO_INCREMENT de la tabla `buses`
 --
 ALTER TABLE `buses`
-  MODIFY `bus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `bus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `django_admin_log`
@@ -693,13 +667,13 @@ ALTER TABLE `django_migrations`
 -- AUTO_INCREMENT de la tabla `passenger_seats`
 --
 ALTER TABLE `passenger_seats`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `trips`
 --
 ALTER TABLE `trips`
-  MODIFY `trip_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `trip_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
