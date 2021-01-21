@@ -2,7 +2,7 @@
 ## Descripción
 Test para postulación a Destacame en el cargo de Full Stack Developer el cual consiste en una plataforma para gestionar los viajes de una agencia de buses.
 ## Modelo de datos
-Se creo a partir de las necesidades planteadas en el enunciado. Destaco la creación de un campo "seats_taken" en el modelo "Viajes", el cual permite facilitar las consultas de estadisticas solicitadas. Si bien reconozco que existe un trade-off, ya que se ocupará un poco más de almacenamiento, creo que a gran escala podría resultar en un gran beneficio para el sistema. El modelo de datos es el siguiente:
+Se creó a partir de las necesidades planteadas en el enunciado. Destaco la creación de un campo "seats_taken" en el modelo "Viajes", el cual permite facilitar las consultas de estadisticas solicitadas. Si bien reconozco que existe un trade-off, ya que se ocupará un poco más de almacenamiento, creo que a gran escala podría resultar en un gran beneficio para el sistema. El modelo de datos es el siguiente:
 ![Modelo de Datos](/modelo.png)
 ## Importante!
 * Crear buses con 10 asientos.
