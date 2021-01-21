@@ -3,6 +3,10 @@
 Test para postulación a Destacame en el cargo de Full Stack Developer el cual consiste en una plataforma para gestionar los viajes de una agencia de buses.
 ## Modelo de datos
 Se creo a partir de las necesidades planteadas en el enunciado. Destaco la creación de un campo "seats_taken" en el modelo "Viajes", el cual permite facilitar las consultas de estadisticas solicitadas. Si bien reconozco que existe un trade-off, ya que se ocupará un poco más de almacenamiento, creo que a gran escala podría resultar en un gran beneficio para el sistema. El modelo de datos es el siguiente:
+![Modelo de Datos](/modelo.png)
+## Importante!
+* Crear buses con 10 asientos.
+* Cuando se hagan reservas, siempre seleccionar uno de los asientos si se va apretar el botón para reservar. Si no, cerrar el pop-up desde la 'x' ubicada en la esquina superior derecha.
 ## Configuración 🔧
 A continuación se explicarán los pasos a seguir para hacer funcionar el proyecto.
 ### Instalación de python 3.9.1
@@ -60,15 +64,3 @@ En el sistema se han implementado todas las funciones requeridas. Para esto se h
 * Aprender más sobre Vue.js y Django Rest Framework.
 ## Autor ✒️
 **Franco Rodolfo Zalavari Palma** - fzpalma@gmail.com
-
-## Apunte, luego borrar 
-### Orden de comandos ejecutados para instalar librerías
-npm install axios (para conectar con el backend)
-npm install bootstrap bootstrap-vue jquery popper.js (framework css, antes bulma)
-
-db_admin = admin pw destacametest
-la aplicacion de vue tiene babel, router y css preprocessors = Sass/SCSS (with node-sass)
-
-npm i --save @fortawesome/fontawesome-svg-core
-npm i --save @fortawesome/free-solid-svg-icons
-npm i --save @fortawesome/vue-fontawesome
