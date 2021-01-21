@@ -22,6 +22,7 @@
                                 id= "rut"
                                 size="md"
                                 v-model="rut"
+                                placeholder="Sin puntos, guíon ni codigo verificador"
                                 @change = "searchPassenger()"
                                 aria-describedby="invalid-passenger">
                                 </b-form-input>
@@ -117,6 +118,9 @@ export default {
       passengerState() {
         if(this.passenger){
             return true
+        }
+        else if(this.rut===''){
+            return null
         }
         else{
             return false

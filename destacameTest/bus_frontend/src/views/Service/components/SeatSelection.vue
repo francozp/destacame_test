@@ -24,6 +24,14 @@
         </b-button>
       </template>
       <!-- Cards that contains data about trips -->
+      <template v-if="empty">
+        <b-alert v-model="empty" class="mt-5" show variant="danger">
+          <strong>No existen buses para el trayecto y fecha indicados</strong>
+        </b-alert>
+        <b-button variant="primary" size="sm" @click='$router.push("Home")' class="mr-1">
+          Volver a Buscar Viajes
+        </b-button>
+      </template>
       <b-card-group deck v-for="item in items" :key="item.trip_id">
         <b-card>
             <b-row class="d-flex align-items-center">
@@ -68,7 +76,7 @@
               <b-col v-for="(place) in row" :key="place.seat">
                   <div class="seat">
                     <div v-if="place.state === 0">  
-                      <input type="radio" :id="place.seat" :value="place.seat" v-model="seats_input" />
+                      <input type="radio" required :id="place.seat" :value="place.seat" v-model="seats_input" />
                       <label :for="place.seat" class="px-2 py-1">{{ place.seat }}</label>
                     </div>
                     <div v-else>
@@ -120,6 +128,7 @@ export default {
         items: [],
         seats: [],
         seats_input: '',
+        empty: false,
         destination: '',
         show: false,
         showAlert: false,
@@ -133,7 +142,7 @@ export default {
     },
     mounted(){
       if(this.rut){
-        this.searchTrips(),
+        this.searchTrips()
         this.searchCourse()
         this.show = true
       }
@@ -168,6 +177,12 @@ export default {
               }
           }).then((response) => {
             this.items = response.data // Assign retrieved items
+            if(this.items.length === 0){
+              this.empty = true
+            }
+            else{
+              this.empty = false
+        }
           })
         },
         info(item, button) {
@@ -224,9 +239,7 @@ export default {
                     username: 'admin',
                     password: 'destacametest'
           }
-        }).then(
-          console.log("aumentado")
-        )
+        })
       },
       goHome(){
         this.$route.push({name:"Home"})

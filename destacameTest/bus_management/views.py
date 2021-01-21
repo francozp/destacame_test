@@ -82,7 +82,7 @@ class TripViewSet(viewsets.ModelViewSet):
         # N should be a integer number, between 0 and 10
         N = math.floor(float(request.query_params.get('N')))
         buses = Trips.objects.filter(course_id=course_id).filter(
-            seats_taken__gt=N).values('bus_id')
+                    seats_taken__gt=N).distinct().values('bus_id')
         return Response(buses)
 
     @action(detail=False)
