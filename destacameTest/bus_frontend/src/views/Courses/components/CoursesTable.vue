@@ -1,5 +1,8 @@
 <template>
   <b-container fluid class="my-4">
+    <b-alert v-model="showAlert" variant="success" dismissible>
+      ¡El trayecto se ha creado exitosamente!
+    </b-alert>
     <!-- Search Bar --> 
     <div class="float-right">          
       <b-form-group
@@ -220,6 +223,7 @@ import axios from 'axios';
           show: false,
           origin: '',
           destination: '',
+          showAlert: false,
           // Fields of table
           fields: [
             { key: 'course_id', label: 'Id del trayecto', sortable: true, sortDirection: 'desc' },
@@ -313,6 +317,7 @@ import axios from 'axios';
           this.getCourses() // Update Table
           this.origin = ''
           this.destination = ''
+          this.showAlert = true
         }).catch((error) => {
           console.log(error) // Print error on console
         })

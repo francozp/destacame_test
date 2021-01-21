@@ -1,19 +1,28 @@
 <template>
     <div class="seatReservation">
       <!-- Service information card -->
-      <b-card class="w-100 shadow-lg rounded mb-1"  bg-variant="destacame" text-variant="white">
-          <b-card-body style="padding:0.5rem">
-            <b-row class="pb-1 pt-1">
-                <b-col>
-                <b-card-text style="font-size:1.3rem"> Servicio: {{ origin }} a {{ destination }}</b-card-text> 
-                </b-col>
-                <b-col>
-                <b-card-text style="font-size:1.3rem">Fecha: {{ date }}</b-card-text>
-                </b-col>
-            </b-row>
-          </b-card-body>
-      </b-card>
-
+      <template v-if="show">
+        <b-card class="w-100 shadow-lg rounded mb-1"  bg-variant="destacame" text-variant="white">
+            <b-card-body style="padding:0.5rem">
+              <b-row class="pb-1 pt-1">
+                  <b-col>
+                  <b-card-text style="font-size:1.3rem"> Servicio: {{ origin }} a {{ destination }}</b-card-text> 
+                  </b-col>
+                  <b-col>
+                  <b-card-text style="font-size:1.3rem">Fecha: {{ date }}</b-card-text>
+                  </b-col>
+              </b-row>
+            </b-card-body>
+        </b-card>
+      </template>
+      <template v-else>
+        <b-alert v-model="showAlert" variant="success" >
+        ¡El asiento ha sido reservado exitosamente!
+        </b-alert>
+        <b-button variant="primary" size="sm" @click='$router.push("Home")' class="mr-1">
+          Volver a Buscar Viajes
+        </b-button>
+      </template>
       <!-- Cards that contains data about trips -->
       <b-card-group deck v-for="item in items" :key="item.trip_id">
         <b-card>
@@ -49,7 +58,7 @@
     <!-- Seat Selection Modal -->
     <div class="float-left">
       <b-modal :id="infoModal.id" :title="infoModal.title" hide-footer ok-only header-text-variant="primary">
-        <b-form v-on:submit.prevent="addSeatToTrip">
+        <b-form>
         <b-container class="px-5" fluid>
             <b-row>
             <b-col cols=4>
@@ -112,6 +121,8 @@ export default {
         seats: [],
         seats_input: '',
         destination: '',
+        show: false,
+        showAlert: false,
         origin: '',
         infoModal: {
             id: 'info-modal',
@@ -121,8 +132,15 @@ export default {
       }
     },
     mounted(){
-      this.searchTrips(),
-      this.searchCourse()
+      if(this.rut){
+        this.searchTrips(),
+        this.searchCourse()
+        this.show = true
+      }
+      else{
+        this.show = false
+        this.showAlert = true
+      }
     },
     methods: {
         searchCourse(){
@@ -191,9 +209,9 @@ export default {
               username: 'admin',
               password: 'destacametest'
           }
-        }).then((response) => {
-          this.$router.push({ name: 'Home' }) // redirect to HomePage
-        }).catch((error) => {
+        }).then(
+          this.addSeatToTrip()
+        ).catch((error) => {
           console.log(error) // Log error on console
         })        
       },
@@ -206,7 +224,12 @@ export default {
                     username: 'admin',
                     password: 'destacametest'
           }
-        })
+        }).then(
+          console.log("aumentado")
+        )
+      },
+      goHome(){
+        this.$route.push({name:"Home"})
       }
     }
 }

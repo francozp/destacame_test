@@ -1,6 +1,6 @@
 <template>
   <div class="statistics">
-    <h2 class="pb-3">Estadisticas</h2>
+    <h1 class="pb-3">Estadisticas</h1 >
         <statistics-table></statistics-table>
   </div>
 </template>

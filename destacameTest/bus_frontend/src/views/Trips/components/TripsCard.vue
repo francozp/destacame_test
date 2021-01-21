@@ -1,5 +1,8 @@
 <template>
 <b-form v-on:submit.prevent="addTrip" class="w-100 h-100">
+  <b-alert v-model="showAlert" variant="success" dismissible>
+      ¡El viaje se ha creado exitosamente!
+    </b-alert>
   <div class="row pt-3 pb-3">
     <b-col cols="12" md="8">
       <!-- Trip Creation Card -->
@@ -188,6 +191,7 @@ import axios from 'axios';
         today: '',
         date: '',
         time: '',
+        showAlert: false,
         destination: '-',
         driver: '-',
         course: '-',
@@ -293,6 +297,7 @@ import axios from 'axios';
             this.bus = '-'
             this.origin_selected = '-'
             this.course_selected = '-'
+            this.showAlert = true
         }).catch((error) => {
           console.log(error.response) // Print error on console
         })

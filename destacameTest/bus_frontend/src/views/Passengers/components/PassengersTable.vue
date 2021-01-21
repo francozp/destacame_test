@@ -1,5 +1,8 @@
 <template>
   <b-container fluid class="my-4">
+    <b-alert v-model="showAlert" variant="success" dismissible>
+      ¡El pasajero se ha creado exitosamente!
+    </b-alert>
     <!-- Search Bar --> 
     <div class="float-right">          
       <b-form-group
@@ -35,7 +38,7 @@
       <b-button @click="show=true" variant="primary">Crear Pasajero</b-button>
       <b-modal v-model="show" hide-footer title="Crear Pasajero" header-text-variant="primary">
         <b-container fluid>
-          <b-form v-on:submit.prevent="addPassenger">
+          <b-form v-on:submit.prevent="addPassenger" @submit="checkForm">
             <!-- Inputs -->
             <!-- Seats -->
             <b-row class="mb-1">
@@ -261,6 +264,8 @@ import axios from 'axios';
           name: '',
           lastname: '',
           birthday: '1990-01-01',
+          showAlert: false,
+          errors: [],
           // Fields of table
           fields: [
             { key: 'rut', label: 'RUT', sortable: true, sortDirection: 'desc' },
@@ -292,12 +297,14 @@ import axios from 'axios';
       rutState() {
         // Verify state of Rut Input
         if(this.rut.length <= 8 & this.rut.length > 6 & !isNaN(this.rut)){
+          this.errors["rut"] = ''
           return true
         }
         else if(this.rut.length == 0){
           return null
         }
         else{
+          this.errors["rut"] = 'Rut Invalido'
           return false
         }
       },
@@ -371,6 +378,7 @@ import axios from 'axios';
           this.name = ''
           this.lastname = ''
           this.birthday = '1990-01-01'
+          this.showAlert = true
         }).catch((error) => {
           console.log(error) // Print error on console
         })
@@ -420,7 +428,14 @@ import axios from 'axios';
           this.infoModal.birthday = item.birthday
           this.$root.$emit('bv::show::modal', this.infoModal.id, button)
       },
-
+      checkForm(e){
+        if(this.rutState & this.nameState & this.lastnameState){
+          return true
+        }
+        else{
+          e.preventDefault();
+        }
+      },
       resetInfoModal() {
           this.infoModal.title = ''
           this.infoModal.content = []

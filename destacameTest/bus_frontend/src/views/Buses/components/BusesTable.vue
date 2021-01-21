@@ -1,5 +1,8 @@
 <template>
   <b-container fluid class="my-4">
+    <b-alert v-model="showAlert" variant="success" dismissible>
+      ¡El bus se ha creado exitosamente!
+    </b-alert>
     <!-- Search Bar --> 
     <div class="float-right">          
       <b-form-group
@@ -160,6 +163,7 @@ import axios from 'axios';
         items: [],
         show: false,
         seats: 10,
+        showAlert: false,
         // Fields of table
         fields: [
         { key: 'bus_id', label: 'Id del bus', sortable: true, sortDirection: 'desc' },
@@ -215,10 +219,11 @@ import axios from 'axios';
                 username: 'admin',
                 password: 'destacametest'
             }
-          }).then((response) => {
-            this.getBuses() // Update Table
-            this.seats = 10
-          }).catch((error) => {
+          }).then(
+            this.getBuses(),// Update Table
+            this.seats = 10,
+            this.showAlert = true
+          ).catch((error) => {
             console.log(error) // Print error on console
           })
         }
@@ -251,7 +256,9 @@ import axios from 'axios';
             username: 'admin',
             password: 'destacametest'
           }
-        })
+        }).catch((error) => {
+            console.log(error) // Print error on console
+          })
       },
       // Opens the modal with item information
       info(item, index, button) {

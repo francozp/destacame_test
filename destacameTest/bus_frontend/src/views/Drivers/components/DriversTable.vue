@@ -1,5 +1,8 @@
 <template>
   <b-container fluid class="my-4">
+    <b-alert v-model="showAlert" variant="success" dismissible>
+      ¡El chofer se ha creado exitosamente!
+    </b-alert>
     <!-- Search Bar --> 
     <div class="float-right">          
       <b-form-group
@@ -260,6 +263,7 @@ import axios from 'axios';
           name: '',
           lastname: '',
           birthday: '1990-01-01',
+          showAlert: false,
           // Fields of table
           fields: [
           { key: 'rut', label: 'RUT', sortable: true, sortDirection: 'desc' },
@@ -369,6 +373,7 @@ import axios from 'axios';
           this.name = ''
           this.lastname = ''
           this.birthday = '1990-01-01'
+          this.showAlert = true
         }).catch((error) => {
           console.log(error) // Print error on console
         })
